@@ -42,6 +42,11 @@ exclude .travis
 exclude .travis/install.sh
 exclude .travis/run.sh
 
+# Azure Pipelines
+exclude azure-pipelines.yml
+exclude .azure-pipelines
+recursive-exclude .azure-pipelines *
+
 # Remove readthedocs config
 exclude .readthedocs.yml
 
@@ -52,9 +57,4 @@ exclude .coveragerc
 exclude codecov.yml
 
 # Remove release automation script
-exclude tasks.py
-
-# Exclude jenkins things
-exclude Jenkinsfile
-exclude .jenkins
-exclude .jenkins/Jenkinsfile-pynacl-wheel-builder
+exclude release.py
