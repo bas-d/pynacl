@@ -1,0 +1,587 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Public Key Encryption &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Secret Key Encryption" href="secret.html" />
+    <link rel="prev" title="PyNaCl: Python binding to the libsodium library" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Public Key Encryption</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nacl-public-box">nacl.public.Box</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nacl-public-sealedbox">nacl.public.SealedBox</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#algorithm">Algorithm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vectors/index.html">Reference vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Public Key Encryption</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/public.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="public-key-encryption">
+<h1>Public Key Encryption<a class="headerlink" href="#public-key-encryption" title="Permalink to this headline">¶</a></h1>
+<p>Imagine Alice wants something valuable shipped to her. Because it’s valuable,
+she wants to make sure it arrives securely (i.e. hasn’t been opened or
+tampered with) and that it’s not a forgery (i.e. it’s actually from the sender
+she’s expecting it to be from and nobody’s pulling the old switcheroo).</p>
+<p>One way she can do this is by providing the sender (let’s call him Bob) with a
+high-security box of her choosing. She provides Bob with this box, and
+something else: a padlock, but a padlock without a key. Alice is keeping that
+key all to herself. Bob can put items in the box then put the padlock onto it.
+But once the padlock snaps shut, the box cannot be opened by anyone who
+doesn’t have Alice’s private key.</p>
+<p>Here’s the twist though: Bob also puts a padlock onto the box. This padlock
+uses a key Bob has published to the world, such that if you have one of Bob’s
+keys, you know a box came from him because Bob’s keys will open Bob’s padlocks
+(let’s imagine a world where padlocks cannot be forged even if you know the
+key). Bob then sends the box to Alice.</p>
+<p>In order for Alice to open the box, she needs two keys: her private key that
+opens her own padlock, and Bob’s well-known key. If Bob’s key doesn’t open the
+second padlock, then Alice knows that this is not the box she was expecting
+from Bob, it’s a forgery.</p>
+<p>This bidirectional guarantee around identity is known as mutual authentication.</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nacl-public-box">
+<h3>nacl.public.Box<a class="headerlink" href="#nacl-public-box" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#nacl.public.Box" title="nacl.public.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> class uses the given public and private (secret)
+keys to derive a shared key, which is used with the nonce given to encrypt the
+given messages and to decrypt the given ciphertexts.  The same shared key will
+be generated from both pairing of keys, so given two keypairs belonging to
+Alice (pkalice, skalice) and Bob (pkbob, skbob), the key derived from
+(pkalice, skbob) will equal that from (pkbob, skalice).</p>
+<p>This is how the system works:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nacl.utils</span>
+<span class="kn">from</span> <span class="nn">nacl.public</span> <span class="k">import</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">Box</span>
+
+<span class="c1"># Generate Bob&#39;s private key, which must be kept secret</span>
+<span class="n">skbob</span> <span class="o">=</span> <span class="n">PrivateKey</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+
+<span class="c1"># Bob&#39;s public key can be given to anyone wishing to send</span>
+<span class="c1">#   Bob an encrypted message</span>
+<span class="n">pkbob</span> <span class="o">=</span> <span class="n">skbob</span><span class="o">.</span><span class="n">public_key</span>
+
+<span class="c1"># Alice does the same and then Alice and Bob exchange public keys</span>
+<span class="n">skalice</span> <span class="o">=</span> <span class="n">PrivateKey</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+<span class="n">pkalice</span> <span class="o">=</span> <span class="n">skalice</span><span class="o">.</span><span class="n">public_key</span>
+
+<span class="c1"># Bob wishes to send Alice an encrypted message so Bob must make a Box with</span>
+<span class="c1">#   his private key and Alice&#39;s public key</span>
+<span class="n">bob_box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">skbob</span><span class="p">,</span> <span class="n">pkalice</span><span class="p">)</span>
+
+<span class="c1"># This is our message to send, it must be a bytestring as Box will treat it</span>
+<span class="c1">#   as just a binary blob of data.</span>
+<span class="n">message</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Kill all humans&quot;</span>
+</pre></div>
+</div>
+<p>PyNaCl can automatically generate a random nonce for us, making the encryption
+very simple:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encrypt our message, it will be exactly 40 bytes longer than the</span>
+<span class="c1">#   original message as it stores authentication information and the</span>
+<span class="c1">#   nonce alongside it.</span>
+<span class="n">encrypted</span> <span class="o">=</span> <span class="n">bob_box</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>However, if we need to use an explicit nonce, it can be passed along with the
+message:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is a nonce, it *MUST* only be used once, but it is not considered</span>
+<span class="c1">#   secret and can be transmitted or stored alongside the ciphertext. A</span>
+<span class="c1">#   good source of nonces are just sequences of 24 random bytes.</span>
+<span class="n">nonce</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">Box</span><span class="o">.</span><span class="n">NONCE_SIZE</span><span class="p">)</span>
+
+<span class="n">encrypted</span> <span class="o">=</span> <span class="n">bob_box</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">nonce</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finally, the message is decrypted (regardless of how the nonce was generated):</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Alice creates a second box with her private key to decrypt the message</span>
+<span class="n">alice_box</span> <span class="o">=</span> <span class="n">Box</span><span class="p">(</span><span class="n">skalice</span><span class="p">,</span> <span class="n">pkbob</span><span class="p">)</span>
+
+<span class="c1"># Decrypt our message, an exception will be raised if the encryption was</span>
+<span class="c1">#   tampered with or there was otherwise an error.</span>
+<span class="n">plaintext</span> <span class="o">=</span> <span class="n">alice_box</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">plaintext</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Kill all humans
+</pre></div>
+</div>
+</div>
+<div class="section" id="nacl-public-sealedbox">
+<h3>nacl.public.SealedBox<a class="headerlink" href="#nacl-public-sealedbox" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#nacl.public.SealedBox" title="nacl.public.SealedBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">SealedBox</span></code></a> class encrypts messages addressed
+to a specified key-pair by using ephemeral sender’s keypairs, which
+will be discarded just after encrypting a single plaintext message.</p>
+<p>This kind of construction allows sending messages, which only the recipient
+can decrypt without providing any kind of cryptographic proof of sender’s
+authorship.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By design, the recipient will have no means to trace
+the ciphertext to a known author, since the sending
+keypair itself is not bound to any sender’s identity, and
+the sender herself will not be able to decrypt the ciphertext
+she just created, since the private part of the key cannot be
+recovered after use.</p>
+</div>
+<p>This is how the system works:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nacl.utils</span>
+<span class="kn">from</span> <span class="nn">nacl.public</span> <span class="k">import</span> <span class="n">PrivateKey</span><span class="p">,</span> <span class="n">SealedBox</span>
+
+<span class="c1"># Generate Bob&#39;s private key, as we&#39;ve done in the Box example</span>
+<span class="n">skbob</span> <span class="o">=</span> <span class="n">PrivateKey</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+<span class="n">pkbob</span> <span class="o">=</span> <span class="n">skbob</span><span class="o">.</span><span class="n">public_key</span>
+
+<span class="c1"># Alice wishes to send a encrypted message to Bob,</span>
+<span class="c1"># but prefers the message to be untraceable</span>
+<span class="n">sealed_box</span> <span class="o">=</span> <span class="n">SealedBox</span><span class="p">(</span><span class="n">pkbob</span><span class="p">)</span>
+
+<span class="c1"># This is Alice&#39;s message</span>
+<span class="n">message</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&quot;Kill all kittens&quot;</span>
+
+<span class="c1"># Encrypt the message, it will carry the ephemeral key public part</span>
+<span class="c1"># to let Bob decrypt it</span>
+<span class="n">encrypted</span> <span class="o">=</span> <span class="n">sealed_box</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, Bob wants to read the secret message he just received; therefore
+he must create a SealedBox using his own private key:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">unseal_box</span> <span class="o">=</span> <span class="n">SealedBox</span><span class="p">(</span><span class="n">skbob</span><span class="p">)</span>
+<span class="c1"># decrypt the received message</span>
+<span class="n">plaintext</span> <span class="o">=</span> <span class="n">unseal_box</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">encrypted</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">plaintext</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Kill all kittens
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nacl.public.PublicKey">
+<em class="property">class </em><code class="sig-prename descclassname">nacl.public.</code><code class="sig-name descname">PublicKey</code><span class="sig-paren">(</span><em class="sig-param">public_key</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#PublicKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.PublicKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>The public key counterpart to an Curve25519
+<a class="reference internal" href="#nacl.public.PrivateKey" title="nacl.public.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a> for encrypting messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>public_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – Encoded Curve25519 public key.</p></li>
+<li><p><strong>encoder</strong> – A class that is able to decode the <code class="docutils literal notranslate"><span class="pre">public_key</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="nacl.public.PrivateKey">
+<em class="property">class </em><code class="sig-prename descclassname">nacl.public.</code><code class="sig-name descname">PrivateKey</code><span class="sig-paren">(</span><em class="sig-param">private_key</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#PrivateKey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.PrivateKey" title="Permalink to this definition">¶</a></dt>
+<dd><p>Private key for decrypting messages using the Curve25519 algorithm.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This <strong>must</strong> be protected and remain secret. Anyone who
+knows the value of your <a class="reference internal" href="#nacl.public.PrivateKey" title="nacl.public.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a> can decrypt
+any message encrypted by the corresponding
+<a class="reference internal" href="#nacl.public.PublicKey" title="nacl.public.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The private key used to decrypt messages.</p></li>
+<li><p><strong>encoder</strong> – A class that is able to decode the <code class="docutils literal notranslate"><span class="pre">private_key</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="nacl.public.PrivateKey.public_key">
+<code class="sig-name descname">public_key</code><a class="headerlink" href="#nacl.public.PrivateKey.public_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>An instance of <a class="reference internal" href="#nacl.public.PublicKey" title="nacl.public.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a> that corresponds with
+the private key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nacl.public.PrivateKey.generate">
+<em class="property">classmethod </em><code class="sig-name descname">generate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#PrivateKey.generate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.PrivateKey.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a random <a class="reference internal" href="#nacl.public.PrivateKey" title="nacl.public.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a> object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An instance of <a class="reference internal" href="#nacl.public.PrivateKey" title="nacl.public.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nacl.public.Box">
+<em class="property">class </em><code class="sig-prename descclassname">nacl.public.</code><code class="sig-name descname">Box</code><span class="sig-paren">(</span><em class="sig-param">private_key</em>, <em class="sig-param">public_key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#Box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.Box" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Box class boxes and unboxes messages between a pair of keys</p>
+<p>The ciphertexts generated by <a class="reference internal" href="#nacl.public.Box" title="nacl.public.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a> include a 16
+byte authenticator which is checked as part of the decryption. An invalid
+authenticator will cause the decrypt function to raise an exception. The
+authenticator is not a signature. Once you’ve decrypted the message you’ve
+demonstrated the ability to create arbitrary valid message, so messages you
+send are repudiable. For non-repudiable messages, sign them after
+encryption.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>private_key</strong> – An instance of <a class="reference internal" href="#nacl.public.PrivateKey" title="nacl.public.PrivateKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PrivateKey</span></code></a> used
+to encrypt and decrypt messages</p></li>
+<li><p><strong>public_key</strong> – An instance of <a class="reference internal" href="#nacl.public.PublicKey" title="nacl.public.PublicKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">PublicKey</span></code></a> used to
+encrypt and decrypt messages</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="nacl.public.Box.decode">
+<em class="property">classmethod </em><code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param">encoded</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#Box.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.Box.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decodes a serialized <a class="reference internal" href="#nacl.public.Box" title="nacl.public.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>An instance of <a class="reference internal" href="#nacl.public.Box" title="nacl.public.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">Box</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nacl.public.Box.encrypt">
+<code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param">plaintext</em>, <em class="sig-param">nonce</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#Box.encrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.Box.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypts the plaintext message using the given <cite>nonce</cite> (or generates
+one randomly if omitted) and returns the ciphertext encoded with the
+encoder.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is <strong>VITALLY</strong> important that the nonce is a nonce,
+i.e. it is a number used only once for any given key. If you
+fail to do this, you compromise the privacy of the messages
+encrypted.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The plaintext message to encrypt.</p></li>
+<li><p><strong>nonce</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The nonce to use in the encryption.</p></li>
+<li><p><strong>encoder</strong> – A class that is able to decode the ciphertext.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An instance of <a class="reference internal" href="utils.html#nacl.utils.EncryptedMessage" title="nacl.utils.EncryptedMessage"><code class="xref py py-class docutils literal notranslate"><span class="pre">EncryptedMessage</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nacl.public.Box.decrypt">
+<code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param">ciphertext</em>, <em class="sig-param">nonce</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#Box.decrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.Box.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypts the ciphertext using the <cite>nonce</cite> (explicitly, when passed as a
+parameter or implicitly, when omitted, as part of the ciphertext) and
+returns the plaintext message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The encrypted message to decrypt.</p></li>
+<li><p><strong>nonce</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The nonce to use in the decryption.</p></li>
+<li><p><strong>encoder</strong> – A class that is able to decode the plaintext.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return bytes</dt>
+<dd class="field-even"><p>The decrypted plaintext.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nacl.public.Box.shared_key">
+<code class="sig-name descname">shared_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#Box.shared_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.Box.shared_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Curve25519 shared secret, that can then be used as a key in
+other symmetric ciphers.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is <strong>VITALLY</strong> important that you use a nonce with your
+symmetric cipher. If you fail to do this, you compromise the
+privacy of the messages encrypted. Ensure that the key length of
+your cipher is 32 bytes.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Return bytes</dt>
+<dd class="field-odd"><p>The shared secret.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nacl.public.SealedBox">
+<em class="property">class </em><code class="sig-prename descclassname">nacl.public.</code><code class="sig-name descname">SealedBox</code><span class="sig-paren">(</span><em class="sig-param">receiver_key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#SealedBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.SealedBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>The SealedBox class can box and unbox messages sent to a receiver key
+using an ephemeral sending keypair.</p>
+<dl class="method">
+<dt id="nacl.public.SealedBox.encrypt">
+<code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param">plaintext</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#SealedBox.encrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.SealedBox.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt the message using a Box constructed from an ephemeral
+key-pair and the receiver key.</p>
+<p>The public part of the ephemeral key-pair will be enclosed in the
+returned ciphertext.</p>
+<p>The private part of the ephemeral key-pair will be scrubbed before
+returning the ciphertext, therefore, the sender will not be able
+to decrypt the message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plaintext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The plaintext message to encrypt.</p></li>
+<li><p><strong>encoder</strong> – A class that is able to decode the ciphertext.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return bytes</dt>
+<dd class="field-even"><p>The public part of the ephemeral keypair,
+followed by the encrypted ciphertext</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="nacl.public.SealedBox.decrypt">
+<code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param">ciphertext</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/nacl/public.html#SealedBox.decrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.public.SealedBox.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt the message using a Box constructed from the receiver key
+and the ephemeral key enclosed in the ciphertext.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ciphertext</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The ciphertext message to decrypt.</p></li>
+<li><p><strong>encoder</strong> – A class that is able to decode the ciphertext.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return bytes</dt>
+<dd class="field-even"><p>The decrypted message</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<div class="section" id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><strong>Public Keys:</strong> <a class="reference external" href="https://cr.yp.to/ecdh.html">Curve25519 high-speed elliptic curve cryptography</a></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="secret.html" class="btn btn-neutral float-right" title="Secret Key Encryption" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="PyNaCl: Python binding to the libsodium library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

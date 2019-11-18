@@ -1,0 +1,266 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Doing A Release" href="doing-a-release.html" />
+    <link rel="prev" title="nacl.hashlib" href="api/hashlib.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#binary-wheel-install">Binary wheel install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux-source-build">Linux source build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vectors/index.html">Reference vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="binary-wheel-install">
+<h2>Binary wheel install<a class="headerlink" href="#binary-wheel-install" title="Permalink to this headline">¶</a></h2>
+<p>PyNaCl ships as a binary wheel on OS X, Windows and Linux <code class="docutils literal notranslate"><span class="pre">manylinux1</span></code> <a class="footnote-reference brackets" href="#many" id="id1">1</a> ,
+so all dependencies are included. Make sure you have an up-to-date pip
+and run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install pynacl
+</pre></div>
+</div>
+</div>
+<div class="section" id="linux-source-build">
+<h2>Linux source build<a class="headerlink" href="#linux-source-build" title="Permalink to this headline">¶</a></h2>
+<p>PyNaCl relies on <a class="reference external" href="https://github.com/jedisct1/libsodium">libsodium</a>, a portable C library. A copy is bundled
+with PyNaCl so to install you can run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> pip install pynacl
+</pre></div>
+</div>
+<p>If you’d prefer to use the version of <code class="docutils literal notranslate"><span class="pre">libsodium</span></code> provided by your
+distribution, you can disable the bundled copy during install by running:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nv">SODIUM_INSTALL</span><span class="o">=</span>system pip install pynacl
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Usage of the legacy <code class="docutils literal notranslate"><span class="pre">easy_install</span></code> command provided by setuptools
+is generally discouraged, and is completely unsupported in PyNaCl’s case.</p>
+</div>
+<dl class="footnote brackets">
+<dt class="label" id="many"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p><a class="reference external" href="https://www.python.org/dev/peps/pep-0513/">manylinux1 wheels</a>
+are built on a baseline linux environment based on Centos 5.11
+and should work on most x86 and x86_64 glibc based linux environments.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="doing-a-release.html" class="btn btn-neutral float-right" title="Doing A Release" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api/hashlib.html" class="btn btn-neutral float-left" title="nacl.hashlib" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

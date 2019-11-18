@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nacl.hashlib &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../vectors/index.html">Reference vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>nacl.hashlib</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nacl.hashlib</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2016-2019 Donald Stufft and individual contributors</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1"># http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">binascii</span>
+
+<span class="kn">import</span> <span class="nn">nacl.bindings</span>
+<span class="kn">from</span> <span class="nn">nacl.utils</span> <span class="k">import</span> <span class="n">bytes_as_string</span>
+
+<span class="n">BYTES</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_BYTES</span>
+<span class="n">BYTES_MIN</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_BYTES_MIN</span>
+<span class="n">BYTES_MAX</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_BYTES_MAX</span>
+<span class="n">KEYBYTES</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_KEYBYTES</span>
+<span class="n">KEYBYTES_MIN</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_KEYBYTES_MIN</span>
+<span class="n">KEYBYTES_MAX</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_KEYBYTES_MAX</span>
+<span class="n">SALTBYTES</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_SALTBYTES</span>
+<span class="n">PERSONALBYTES</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_PERSONALBYTES</span>
+
+<span class="n">_b2b_init</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_blake2b_init</span>
+<span class="n">_b2b_final</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_blake2b_final</span>
+<span class="n">_b2b_update</span> <span class="o">=</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_generichash_blake2b_update</span>
+
+
+<div class="viewcode-block" id="blake2b"><a class="viewcode-back" href="../../api/hashlib.html#nacl.hashlib.blake2b">[docs]</a><span class="k">class</span> <span class="nc">blake2b</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :py:mod:`hashlib` API compatible blake2b algorithm implementation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MAX_DIGEST_SIZE</span> <span class="o">=</span> <span class="n">BYTES</span>
+    <span class="n">MAX_KEY_SIZE</span> <span class="o">=</span> <span class="n">KEYBYTES_MAX</span>
+    <span class="n">PERSON_SIZE</span> <span class="o">=</span> <span class="n">PERSONALBYTES</span>
+    <span class="n">SALT_SIZE</span> <span class="o">=</span> <span class="n">SALTBYTES</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">digest_size</span><span class="o">=</span><span class="n">BYTES</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                 <span class="n">salt</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">person</span><span class="o">=</span><span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :py:class:`.blake2b` algorithm initializer</span>
+
+<span class="sd">        :param data:</span>
+<span class="sd">        :type data: bytes</span>
+<span class="sd">        :param int digest_size: the requested digest size; must be</span>
+<span class="sd">                                at most :py:attr:`.MAX_DIGEST_SIZE`;</span>
+<span class="sd">                                the default digest size is :py:data:`.BYTES`</span>
+<span class="sd">        :param key: the key to be set for keyed MAC/PRF usage; if set,</span>
+<span class="sd">                    the key must be at most :py:data:`.KEYBYTES_MAX` long</span>
+<span class="sd">        :type key: bytes</span>
+<span class="sd">        :param salt: a initialization salt at most</span>
+<span class="sd">                     :py:attr:`.SALT_SIZE` long; it will be zero-padded</span>
+<span class="sd">                     if needed</span>
+<span class="sd">        :type salt: bytes</span>
+<span class="sd">        :param person: a personalization string at most</span>
+<span class="sd">                       :py:attr:`.PERSONAL_SIZE` long; it will be zero-padded</span>
+<span class="sd">                       if needed</span>
+<span class="sd">        :type person: bytes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">_b2b_init</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">salt</span><span class="o">=</span><span class="n">salt</span><span class="p">,</span> <span class="n">person</span><span class="o">=</span><span class="n">person</span><span class="p">,</span>
+                                <span class="n">digest_size</span><span class="o">=</span><span class="n">digest_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_digest_size</span> <span class="o">=</span> <span class="n">digest_size</span>
+
+        <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">digest_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_digest_size</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">block_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">128</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;blake2b&#39;</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">_b2b_update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">digest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_st</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">_b2b_final</span><span class="p">(</span><span class="n">_st</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">hexdigest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bytes_as_string</span><span class="p">(</span><span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">digest</span><span class="p">()))</span>
+
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_cp</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">digest_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">digest_size</span><span class="p">)</span>
+        <span class="n">_st</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">_cp</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">_st</span>
+        <span class="k">return</span> <span class="n">_cp</span>
+
+    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Raise the same exception as hashlib&#39;s blake implementation</span>
+<span class="sd">        on copy.copy()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;can&#39;t pickle </span><span class="si">{}</span><span class="s2"> objects&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="scrypt"><a class="viewcode-back" href="../../api/hashlib.html#nacl.hashlib.scrypt">[docs]</a><span class="k">def</span> <span class="nf">scrypt</span><span class="p">(</span><span class="n">password</span><span class="p">,</span> <span class="n">salt</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">20</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+           <span class="n">maxmem</span><span class="o">=</span><span class="mi">2</span><span class="o">**</span><span class="mi">25</span><span class="p">,</span> <span class="n">dklen</span><span class="o">=</span><span class="mi">64</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Derive a cryptographic key using the scrypt KDF.</span>
+
+<span class="sd">    Implements the same signature as the ``hashlib.scrypt`` implemented</span>
+<span class="sd">    in cpython version 3.6</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">nacl</span><span class="o">.</span><span class="n">bindings</span><span class="o">.</span><span class="n">crypto_pwhash_scryptsalsa208sha256_ll</span><span class="p">(</span>
+        <span class="n">password</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">maxmem</span><span class="o">=</span><span class="n">maxmem</span><span class="p">,</span> <span class="n">dklen</span><span class="o">=</span><span class="n">dklen</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

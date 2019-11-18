@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PyNaCl: Python binding to the libsodium library &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Public Key Encryption" href="public.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vectors/index.html">Reference vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>PyNaCl: Python binding to the libsodium library</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pynacl-python-binding-to-the-libsodium-library">
+<h1>PyNaCl: Python binding to the libsodium library<a class="headerlink" href="#pynacl-python-binding-to-the-libsodium-library" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="https://pypi.org/project/PyNaCl/"><img alt="Latest Version" src="https://img.shields.io/pypi/v/pynacl.svg" /></a>
+<a class="reference external image-reference" href="https://travis-ci.org/pyca/pynacl"><img alt="https://travis-ci.org/pyca/pynacl.svg?branch=master" src="https://travis-ci.org/pyca/pynacl.svg?branch=master" /></a>
+<a class="reference external image-reference" href="https://codecov.io/github/pyca/pynacl?branch=master"><img alt="https://codecov.io/github/pyca/pynacl/coverage.svg?branch=master" src="https://codecov.io/github/pyca/pynacl/coverage.svg?branch=master" /></a>
+<a class="reference external image-reference" href="https://pypi.org/project/PyNaCl/"><img alt="Compatible Python Versions" src="https://img.shields.io/pypi/pyversions/pynacl.svg" /></a>
+<p>PyNaCl is a Python binding to <a class="reference external" href="https://github.com/jedisct1/libsodium">libsodium</a>, which is a fork of the
+<a class="reference external" href="https://nacl.cr.yp.to/">Networking and Cryptography library</a>. These libraries have a stated goal of
+improving usability, security and speed. It supports Python 2.7 and 3.4+ as
+well as PyPy 2.6+.</p>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Digital signatures</p></li>
+<li><p>Secret-key encryption</p></li>
+<li><p>Public-key encryption</p></li>
+<li><p>Hashing and message authentication</p></li>
+<li><p>Password based key derivation and password hashing</p></li>
+</ul>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="public.html">Public Key Encryption</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="public.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="public.html#reference">Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="secret.html">Secret Key Encryption</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="secret.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secret.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secret.html#reference">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secret.html#algorithm-details">Algorithm details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="signing.html">Digital Signatures</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#id1">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#id2">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#reference">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="signing.html#ed25519">Ed25519</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hashing.html">Hashing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hashing.html#integrity-check-examples">Integrity check examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hashing.html#additional-hashing-usages-for-blake2b">Additional hashing usages for <code class="xref py py-class docutils literal notranslate"><span class="pre">blake2b</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="hashing.html#message-authentication">Message authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hashing.html#key-derivation">Key derivation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="password_hashing.html">Password hashing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="password_hashing.html#hashers-and-parameters">Hashers and parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="password_hashing.html#password-storage-and-verification">Password storage and verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="password_hashing.html#key-derivation">Key derivation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="support-features">
+<h2>Support Features<a class="headerlink" href="#support-features" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="encoding.html">Encoders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="encoding.html#built-in-encoders">Built in Encoders</a></li>
+<li class="toctree-l2"><a class="reference internal" href="encoding.html#defining-your-own-encoder">Defining your own Encoder</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#pynacl-specific-exceptions">PyNaCl specific exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#pynacl-exceptions-mixing-in-standard-library-ones">PyNaCl exceptions mixing-in standard library ones</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/pwhash.html">nacl.pwhash</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pwhash.html#functions-exposed-at-top-level">Functions exposed at top level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pwhash.html#per-mechanism-password-hashing-implementation-modules">Per-mechanism password hashing implementation modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/pwhash.html#module-nacl.pwhash.argon2id">nacl.pwhash.argon2id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pwhash.html#module-nacl.pwhash.argon2i">nacl.pwhash.argon2i</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pwhash.html#module-nacl.pwhash.scrypt">nacl.pwhash.scrypt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#binary-wheel-install">Binary wheel install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#linux-source-build">Linux source build</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vectors/index.html">Reference vectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vectors/index.html#imported-reference-vectors">Imported reference vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vectors/index.html#custom-generated-reference-vectors">Custom generated reference vectors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#unreleased">1.4.0 (UNRELEASED)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">1.3.0 2018-09-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">1.2.1 - 2017-12-04</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">1.2.0 - 2017-11-01</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">1.1.2 - 2017-03-31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">1.1.1 - 2017-03-15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">1.1.0 - 2017-03-14</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">1.0.1 - 2016-01-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">1.0 - 2016-01-23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">0.3.0 - 2015-03-04</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="indices-and-tables">
+<h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="public.html" class="btn btn-neutral float-right" title="Public Key Encryption" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

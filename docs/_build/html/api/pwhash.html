@@ -1,0 +1,781 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nacl.pwhash &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nacl.hashlib" href="hashlib.html" />
+    <link rel="prev" title="nacl.hash" href="hash.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="hash.html">nacl.hash</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nacl.pwhash</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#functions-exposed-at-top-level">Functions exposed at top level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#per-mechanism-password-hashing-implementation-modules">Per-mechanism password hashing implementation modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-nacl.pwhash.argon2id">nacl.pwhash.argon2id</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-nacl.pwhash.argon2i">nacl.pwhash.argon2i</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-nacl.pwhash.scrypt">nacl.pwhash.scrypt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vectors/index.html">Reference vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>nacl.pwhash</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/pwhash.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-nacl.pwhash">
+<span id="nacl-pwhash"></span><h1>nacl.pwhash<a class="headerlink" href="#module-nacl.pwhash" title="Permalink to this headline">¶</a></h1>
+<p>The package pwhash provides implementations of modern <em>memory-hard</em>
+password hashing construction exposing modules with a uniform API.</p>
+<div class="section" id="functions-exposed-at-top-level">
+<h2>Functions exposed at top level<a class="headerlink" href="#functions-exposed-at-top-level" title="Permalink to this headline">¶</a></h2>
+<p>The top level module only provides the functions implementing
+ascii encoded hashing and verification.</p>
+<dl class="function">
+<dt id="nacl.pwhash.str">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">str</code><span class="sig-paren">(</span><em class="sig-param">password</em>, <em class="sig-param">opslimit=OPSLIMIT_INTERACTIVE</em>, <em class="sig-param">memlimit=MEMLIMIT_INTERACTIVE</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/argon2id.html#str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a password verifier hash, generated with the password hasher
+choosen as a default by libsodium.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – password used to seed the key derivation procedure;
+it length must be between
+<a class="reference internal" href="#nacl.pwhash.PASSWD_MIN" title="nacl.pwhash.PASSWD_MIN"><code class="xref py py-const docutils literal notranslate"><span class="pre">PASSWD_MIN</span></code></a> and
+<a class="reference internal" href="#nacl.pwhash.PASSWD_MAX" title="nacl.pwhash.PASSWD_MAX"><code class="xref py py-const docutils literal notranslate"><span class="pre">PASSWD_MAX</span></code></a></p></li>
+<li><p><strong>opslimit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – the time component (operation count)
+of the key derivation procedure’s computational cost;
+it must be between
+<a class="reference internal" href="#nacl.pwhash.OPSLIMIT_MIN" title="nacl.pwhash.OPSLIMIT_MIN"><code class="xref py py-const docutils literal notranslate"><span class="pre">OPSLIMIT_MIN</span></code></a> and
+<a class="reference internal" href="#nacl.pwhash.OPSLIMIT_MAX" title="nacl.pwhash.OPSLIMIT_MAX"><code class="xref py py-const docutils literal notranslate"><span class="pre">OPSLIMIT_MAX</span></code></a></p></li>
+<li><p><strong>memlimit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – the memory occupation component
+of the key derivation procedure’s computational cost;
+it must be between
+<a class="reference internal" href="#nacl.pwhash.MEMLIMIT_MIN" title="nacl.pwhash.MEMLIMIT_MIN"><code class="xref py py-const docutils literal notranslate"><span class="pre">MEMLIMIT_MIN</span></code></a> and
+<a class="reference internal" href="#nacl.pwhash.MEMLIMIT_MAX" title="nacl.pwhash.MEMLIMIT_MAX"><code class="xref py py-const docutils literal notranslate"><span class="pre">MEMLIMIT_MAX</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the ascii encoded password hash along with a prefix encoding
+the used hashing construct, the random generated salt and
+the operation and memory limits used to generate the password hash</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)">bytes</a></p>
+</dd>
+</dl>
+<p>As of PyNaCl version 1.2 this is <a class="reference internal" href="#nacl.pwhash.argon2id.str" title="nacl.pwhash.argon2id.str"><code class="xref py py-func docutils literal notranslate"><span class="pre">nacl.pwhash.argon2id.str()</span></code></a>.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.pwhash.verify">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">verify</code><span class="sig-paren">(</span><em class="sig-param">password_hash</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash.html#verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function checks if hashing the proposed password, with
+the same construction and parameters encoded in the password hash
+would generate the same encoded string, thus verifying the
+correct password has been proposed in an authentication attempt.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<p class="rubric">Module level constants</p>
+<p>The top level module defines the constants related to the <a class="reference internal" href="#nacl.pwhash.str" title="nacl.pwhash.str"><code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code></a>
+hashing construct and its corresponding <a class="reference internal" href="#nacl.pwhash.verify" title="nacl.pwhash.verify"><code class="xref py py-func docutils literal notranslate"><span class="pre">verify()</span></code></a> password
+verifier.</p>
+<dl class="data">
+<dt id="nacl.pwhash.PASSWD_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">PASSWD_MIN</code><a class="headerlink" href="#nacl.pwhash.PASSWD_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.PASSWD_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">PASSWD_MAX</code><a class="headerlink" href="#nacl.pwhash.PASSWD_MAX" title="Permalink to this definition">¶</a></dt>
+<dd><p>minimum and maximum length of the password to hash</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.PWHASH_SIZE">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">PWHASH_SIZE</code><a class="headerlink" href="#nacl.pwhash.PWHASH_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>maximum size of the encoded hash</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.OPSLIMIT_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">OPSLIMIT_MIN</code><a class="headerlink" href="#nacl.pwhash.OPSLIMIT_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.OPSLIMIT_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">OPSLIMIT_MAX</code><a class="headerlink" href="#nacl.pwhash.OPSLIMIT_MAX" title="Permalink to this definition">¶</a></dt>
+<dd><p>minimum and maximum operation count for the hashing construct</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.MEMLIMIT_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">MEMLIMIT_MIN</code><a class="headerlink" href="#nacl.pwhash.MEMLIMIT_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.MEMLIMIT_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">MEMLIMIT_MAX</code><a class="headerlink" href="#nacl.pwhash.MEMLIMIT_MAX" title="Permalink to this definition">¶</a></dt>
+<dd><p>minimum and maximum memory occupation for the hashing construct</p>
+</dd></dl>
+
+<p>and the recommended values for the opslimit and memlimit parameters</p>
+<dl class="data">
+<dt id="nacl.pwhash.MEMLIMIT_INTERACTIVE">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">MEMLIMIT_INTERACTIVE</code><a class="headerlink" href="#nacl.pwhash.MEMLIMIT_INTERACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.OPSLIMIT_INTERACTIVE">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">OPSLIMIT_INTERACTIVE</code><a class="headerlink" href="#nacl.pwhash.OPSLIMIT_INTERACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd><p>recommended values for the interactive user authentication password
+check case, leading to a sub-second hashing time</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.MEMLIMIT_SENSITIVE">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">MEMLIMIT_SENSITIVE</code><a class="headerlink" href="#nacl.pwhash.MEMLIMIT_SENSITIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.OPSLIMIT_SENSITIVE">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">OPSLIMIT_SENSITIVE</code><a class="headerlink" href="#nacl.pwhash.OPSLIMIT_SENSITIVE" title="Permalink to this definition">¶</a></dt>
+<dd><p>recommended values for generating a password hash/derived key meant to protect
+sensitive data, leading to a multi-second hashing time</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.MEMLIMIT_MODERATE">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">MEMLIMIT_MODERATE</code><a class="headerlink" href="#nacl.pwhash.MEMLIMIT_MODERATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.OPSLIMIT_MODERATE">
+<code class="sig-prename descclassname">nacl.pwhash.</code><code class="sig-name descname">OPSLIMIT_MODERATE</code><a class="headerlink" href="#nacl.pwhash.OPSLIMIT_MODERATE" title="Permalink to this definition">¶</a></dt>
+<dd><p>values leading to a hashing time and memory cost intermediate between the
+interactive and the sensitive cases</p>
+</dd></dl>
+
+</div>
+<div class="section" id="per-mechanism-password-hashing-implementation-modules">
+<h2>Per-mechanism password hashing implementation modules<a class="headerlink" href="#per-mechanism-password-hashing-implementation-modules" title="Permalink to this headline">¶</a></h2>
+<p>Along with the respective <a class="reference internal" href="#nacl.pwhash.str" title="nacl.pwhash.str"><code class="xref py py-func docutils literal notranslate"><span class="pre">str()</span></code></a> and <a class="reference internal" href="#nacl.pwhash.verify" title="nacl.pwhash.verify"><code class="xref py py-func docutils literal notranslate"><span class="pre">verify()</span></code></a> functions,
+the modules implementing named password hashing constructs expose also
+a <code class="xref py py-func docutils literal notranslate"><span class="pre">kdf()</span></code> function returning a raw pseudo-random bytes sequence
+derived from the input parameters</p>
+<div class="section" id="module-nacl.pwhash.argon2id">
+<span id="nacl-pwhash-argon2id"></span><h3>nacl.pwhash.argon2id<a class="headerlink" href="#module-nacl.pwhash.argon2id" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="nacl.pwhash.argon2id.kdf">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">kdf</code><span class="sig-paren">(</span><em class="sig-param">size</em>, <em class="sig-param">password</em>, <em class="sig-param">salt</em>, <em class="sig-param">opslimit=OPSLIMIT_SENSITIVE</em>, <em class="sig-param">memlimit=MEMLIMIT_SENSITIVE</em>, <em class="sig-param">encoder=nacl.encoding.RawEncoder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/argon2id.html#kdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.argon2id.kdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derive a <code class="docutils literal notranslate"><span class="pre">size</span></code> bytes long key from a caller-supplied
+<code class="docutils literal notranslate"><span class="pre">password</span></code> and <code class="docutils literal notranslate"><span class="pre">salt</span></code> pair using the <code class="docutils literal notranslate"><span class="pre">argon2id</span></code> partially
+data dependent memory-hard construct.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – derived key size, must be between
+<a class="reference internal" href="#nacl.pwhash.argon2id.BYTES_MIN" title="nacl.pwhash.argon2id.BYTES_MIN"><code class="xref py py-const docutils literal notranslate"><span class="pre">BYTES_MIN</span></code></a> and
+<a class="reference internal" href="#nacl.pwhash.argon2id.BYTES_MAX" title="nacl.pwhash.argon2id.BYTES_MAX"><code class="xref py py-const docutils literal notranslate"><span class="pre">BYTES_MAX</span></code></a></p></li>
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – password used to seed the key derivation procedure;
+it length must be between
+<a class="reference internal" href="#nacl.pwhash.argon2id.PASSWD_MIN" title="nacl.pwhash.argon2id.PASSWD_MIN"><code class="xref py py-const docutils literal notranslate"><span class="pre">PASSWD_MIN</span></code></a> and
+<a class="reference internal" href="#nacl.pwhash.argon2id.PASSWD_MAX" title="nacl.pwhash.argon2id.PASSWD_MAX"><code class="xref py py-const docutils literal notranslate"><span class="pre">PASSWD_MAX</span></code></a></p></li>
+<li><p><strong>salt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – <strong>RANDOM</strong> salt used in the key derivation procedure;
+its length must be exactly <code class="xref py py-const docutils literal notranslate"><span class="pre">SALTBYTES</span></code></p></li>
+<li><p><strong>opslimit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – the time component (operation count)
+of the key derivation procedure’s computational cost;
+it must be between
+<a class="reference internal" href="#nacl.pwhash.argon2id.OPSLIMIT_MIN" title="nacl.pwhash.argon2id.OPSLIMIT_MIN"><code class="xref py py-const docutils literal notranslate"><span class="pre">OPSLIMIT_MIN</span></code></a> and
+<a class="reference internal" href="#nacl.pwhash.argon2id.OPSLIMIT_MAX" title="nacl.pwhash.argon2id.OPSLIMIT_MAX"><code class="xref py py-const docutils literal notranslate"><span class="pre">OPSLIMIT_MAX</span></code></a></p></li>
+<li><p><strong>memlimit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – the memory occupation component
+of the key derivation procedure’s computational cost;
+it must be between
+<a class="reference internal" href="#nacl.pwhash.argon2id.MEMLIMIT_MIN" title="nacl.pwhash.argon2id.MEMLIMIT_MIN"><code class="xref py py-const docutils literal notranslate"><span class="pre">MEMLIMIT_MIN</span></code></a> and
+<a class="reference internal" href="#nacl.pwhash.argon2id.MEMLIMIT_MAX" title="nacl.pwhash.argon2id.MEMLIMIT_MAX"><code class="xref py py-const docutils literal notranslate"><span class="pre">MEMLIMIT_MAX</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)">bytes</a></p>
+</dd>
+</dl>
+<p>The default settings for opslimit and memlimit are those deemed
+correct for generating a key, which can be used to protect
+sensitive data for a long time, leading to a multi-second
+hashing time.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.pwhash.argon2id.str">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">str</code><span class="sig-paren">(</span><em class="sig-param">password</em>, <em class="sig-param">opslimit=OPSLIMIT_INTERACTIVE</em>, <em class="sig-param">memlimit=MEMLIMIT_INTERACTIVE</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/argon2id.html#str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.argon2id.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a password verifier hash, generated with the <code class="docutils literal notranslate"><span class="pre">argon2id</span></code>
+password hasher.</p>
+<p>See: <a class="reference internal" href="#nacl.pwhash.str" title="nacl.pwhash.str"><code class="xref py py-func docutils literal notranslate"><span class="pre">nacl.pwhash.str()</span></code></a> for the general API.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.pwhash.argon2id.verify">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">verify</code><span class="sig-paren">(</span><em class="sig-param">password_hash</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/_argon2.html#verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.argon2id.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function verifies the proposed <code class="docutils literal notranslate"><span class="pre">password</span></code>, using
+<code class="docutils literal notranslate"><span class="pre">password_hash</span></code> as a password verifier.</p>
+<p>See: <a class="reference internal" href="#nacl.pwhash.verify" title="nacl.pwhash.verify"><code class="xref py py-func docutils literal notranslate"><span class="pre">nacl.pwhash.verify()</span></code></a> for the general API.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<p class="rubric">Module level constants</p>
+<p>The module defines the constants related to the <a class="reference internal" href="#nacl.pwhash.argon2id.kdf" title="nacl.pwhash.argon2id.kdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">kdf()</span></code></a> raw hashing
+construct</p>
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.SALTBYTES">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">SALTBYTES</code><a class="headerlink" href="#nacl.pwhash.argon2id.SALTBYTES" title="Permalink to this definition">¶</a></dt>
+<dd><p>the length of the random bytes sequence passed in as a salt to the
+<a class="reference internal" href="#nacl.pwhash.argon2id.kdf" title="nacl.pwhash.argon2id.kdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">kdf()</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.BYTES_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">BYTES_MIN</code><a class="headerlink" href="#nacl.pwhash.argon2id.BYTES_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.BYTES_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">BYTES_MAX</code><a class="headerlink" href="#nacl.pwhash.argon2id.BYTES_MAX" title="Permalink to this definition">¶</a></dt>
+<dd><p>the minimum and maximum allowed values for the <code class="docutils literal notranslate"><span class="pre">size</span></code> parameter
+of the <a class="reference internal" href="#nacl.pwhash.argon2id.kdf" title="nacl.pwhash.argon2id.kdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">kdf()</span></code></a></p>
+</dd></dl>
+
+<p>The meaning of each of the constants</p>
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.PASSWD_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">PASSWD_MIN</code><a class="headerlink" href="#nacl.pwhash.argon2id.PASSWD_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.PASSWD_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">PASSWD_MAX</code><a class="headerlink" href="#nacl.pwhash.argon2id.PASSWD_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.PWHASH_SIZE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">PWHASH_SIZE</code><a class="headerlink" href="#nacl.pwhash.argon2id.PWHASH_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.OPSLIMIT_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">OPSLIMIT_MIN</code><a class="headerlink" href="#nacl.pwhash.argon2id.OPSLIMIT_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.OPSLIMIT_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">OPSLIMIT_MAX</code><a class="headerlink" href="#nacl.pwhash.argon2id.OPSLIMIT_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.MEMLIMIT_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">MEMLIMIT_MIN</code><a class="headerlink" href="#nacl.pwhash.argon2id.MEMLIMIT_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.MEMLIMIT_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">MEMLIMIT_MAX</code><a class="headerlink" href="#nacl.pwhash.argon2id.MEMLIMIT_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.MEMLIMIT_INTERACTIVE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">MEMLIMIT_INTERACTIVE</code><a class="headerlink" href="#nacl.pwhash.argon2id.MEMLIMIT_INTERACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.OPSLIMIT_INTERACTIVE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">OPSLIMIT_INTERACTIVE</code><a class="headerlink" href="#nacl.pwhash.argon2id.OPSLIMIT_INTERACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.MEMLIMIT_SENSITIVE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">MEMLIMIT_SENSITIVE</code><a class="headerlink" href="#nacl.pwhash.argon2id.MEMLIMIT_SENSITIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.OPSLIMIT_SENSITIVE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">OPSLIMIT_SENSITIVE</code><a class="headerlink" href="#nacl.pwhash.argon2id.OPSLIMIT_SENSITIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.MEMLIMIT_MODERATE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">MEMLIMIT_MODERATE</code><a class="headerlink" href="#nacl.pwhash.argon2id.MEMLIMIT_MODERATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2id.OPSLIMIT_MODERATE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2id.</code><code class="sig-name descname">OPSLIMIT_MODERATE</code><a class="headerlink" href="#nacl.pwhash.argon2id.OPSLIMIT_MODERATE" title="Permalink to this definition">¶</a></dt>
+<dd><p>is the same as in <code class="xref py py-mod docutils literal notranslate"><span class="pre">nacl.hash</span></code>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-nacl.pwhash.argon2i">
+<span id="nacl-pwhash-argon2i"></span><h3>nacl.pwhash.argon2i<a class="headerlink" href="#module-nacl.pwhash.argon2i" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="nacl.pwhash.argon2i.kdf">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">kdf</code><span class="sig-paren">(</span><em class="sig-param">size</em>, <em class="sig-param">password</em>, <em class="sig-param">salt</em>, <em class="sig-param">opslimit=OPSLIMIT_SENSITIVE</em>, <em class="sig-param">memlimit=MEMLIMIT_SENSITIVE</em>, <em class="sig-param">encoder=nacl.encoding.RawEncoder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/argon2i.html#kdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.argon2i.kdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derive a <code class="docutils literal notranslate"><span class="pre">size</span></code> bytes long key from a caller-supplied
+<code class="docutils literal notranslate"><span class="pre">password</span></code> and <code class="docutils literal notranslate"><span class="pre">salt</span></code> pair using the <code class="docutils literal notranslate"><span class="pre">argon2i</span></code>
+data independent memory-hard construct.</p>
+<p>See: py:func:<cite>nacl.pwhash.argon2id.kdf</cite> for the general API.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.pwhash.argon2i.str">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">str</code><span class="sig-paren">(</span><em class="sig-param">password</em>, <em class="sig-param">opslimit=OPSLIMIT_INTERACTIVE</em>, <em class="sig-param">memlimit=MEMLIMIT_INTERACTIVE</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/argon2i.html#str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.argon2i.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a password verifier hash, generated with the <code class="docutils literal notranslate"><span class="pre">argon2i</span></code>
+password hasher.</p>
+<p>See: <a class="reference internal" href="#nacl.pwhash.str" title="nacl.pwhash.str"><code class="xref py py-func docutils literal notranslate"><span class="pre">nacl.pwhash.str()</span></code></a> for the general API.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.pwhash.argon2i.verify">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">verify</code><span class="sig-paren">(</span><em class="sig-param">password_hash</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/_argon2.html#verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.argon2i.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function verifies the proposed <code class="docutils literal notranslate"><span class="pre">password</span></code>, using
+<code class="docutils literal notranslate"><span class="pre">password_hash</span></code> as a password verifier.</p>
+<p>See: <a class="reference internal" href="#nacl.pwhash.verify" title="nacl.pwhash.verify"><code class="xref py py-func docutils literal notranslate"><span class="pre">nacl.pwhash.verify()</span></code></a> for the general API.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<p class="rubric">Module level constants</p>
+<p>The meaning of each of the constants</p>
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.PASSWD_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">PASSWD_MIN</code><a class="headerlink" href="#nacl.pwhash.argon2i.PASSWD_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.PASSWD_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">PASSWD_MAX</code><a class="headerlink" href="#nacl.pwhash.argon2i.PASSWD_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.PWHASH_SIZE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">PWHASH_SIZE</code><a class="headerlink" href="#nacl.pwhash.argon2i.PWHASH_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.SALTBYTES">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">SALTBYTES</code><a class="headerlink" href="#nacl.pwhash.argon2i.SALTBYTES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.BYTES_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">BYTES_MIN</code><a class="headerlink" href="#nacl.pwhash.argon2i.BYTES_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.BYTES_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">BYTES_MAX</code><a class="headerlink" href="#nacl.pwhash.argon2i.BYTES_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.OPSLIMIT_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">OPSLIMIT_MIN</code><a class="headerlink" href="#nacl.pwhash.argon2i.OPSLIMIT_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.OPSLIMIT_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">OPSLIMIT_MAX</code><a class="headerlink" href="#nacl.pwhash.argon2i.OPSLIMIT_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.MEMLIMIT_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">MEMLIMIT_MIN</code><a class="headerlink" href="#nacl.pwhash.argon2i.MEMLIMIT_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.MEMLIMIT_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">MEMLIMIT_MAX</code><a class="headerlink" href="#nacl.pwhash.argon2i.MEMLIMIT_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.MEMLIMIT_INTERACTIVE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">MEMLIMIT_INTERACTIVE</code><a class="headerlink" href="#nacl.pwhash.argon2i.MEMLIMIT_INTERACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.OPSLIMIT_INTERACTIVE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">OPSLIMIT_INTERACTIVE</code><a class="headerlink" href="#nacl.pwhash.argon2i.OPSLIMIT_INTERACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.MEMLIMIT_SENSITIVE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">MEMLIMIT_SENSITIVE</code><a class="headerlink" href="#nacl.pwhash.argon2i.MEMLIMIT_SENSITIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.OPSLIMIT_SENSITIVE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">OPSLIMIT_SENSITIVE</code><a class="headerlink" href="#nacl.pwhash.argon2i.OPSLIMIT_SENSITIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.MEMLIMIT_MODERATE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">MEMLIMIT_MODERATE</code><a class="headerlink" href="#nacl.pwhash.argon2i.MEMLIMIT_MODERATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.argon2i.OPSLIMIT_MODERATE">
+<code class="sig-prename descclassname">nacl.pwhash.argon2i.</code><code class="sig-name descname">OPSLIMIT_MODERATE</code><a class="headerlink" href="#nacl.pwhash.argon2i.OPSLIMIT_MODERATE" title="Permalink to this definition">¶</a></dt>
+<dd><p>is the same as in <a class="reference internal" href="#module-nacl.pwhash" title="nacl.pwhash"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nacl.pwhash</span></code></a>
+and <a class="reference internal" href="#module-nacl.pwhash.argon2id" title="nacl.pwhash.argon2id"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nacl.pwhash.argon2id</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-nacl.pwhash.scrypt">
+<span id="nacl-pwhash-scrypt"></span><h3>nacl.pwhash.scrypt<a class="headerlink" href="#module-nacl.pwhash.scrypt" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="nacl.pwhash.scrypt.kdf">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">kdf</code><span class="sig-paren">(</span><em class="sig-param">size</em>, <em class="sig-param">password</em>, <em class="sig-param">salt</em>, <em class="sig-param">opslimit=OPSLIMIT_SENSITIVE</em>, <em class="sig-param">memlimit=MEMLIMIT_SENSITIVE</em>, <em class="sig-param">encoder=nacl.encoding.RawEncoder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/scrypt.html#kdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.scrypt.kdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derive a <code class="docutils literal notranslate"><span class="pre">size</span></code> bytes long key from a caller-supplied
+<code class="docutils literal notranslate"><span class="pre">password</span></code> and <code class="docutils literal notranslate"><span class="pre">salt</span></code> pair using the <code class="docutils literal notranslate"><span class="pre">scrypt</span></code>
+data dependent memory-hard construct.</p>
+<p>See: <a class="reference internal" href="#nacl.pwhash.argon2id.kdf" title="nacl.pwhash.argon2id.kdf"><code class="xref py py-func docutils literal notranslate"><span class="pre">nacl.pwhash.argon2id.kdf()</span></code></a> for the general API.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.pwhash.scrypt.str">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">str</code><span class="sig-paren">(</span><em class="sig-param">password</em>, <em class="sig-param">opslimit=OPSLIMIT_INTERACTIVE</em>, <em class="sig-param">memlimit=MEMLIMIT_INTERACTIVE</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/scrypt.html#str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.scrypt.str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a password verifier hash, generated with the <code class="docutils literal notranslate"><span class="pre">scrypt</span></code>
+password hasher.</p>
+<p>See: <a class="reference internal" href="#nacl.pwhash.str" title="nacl.pwhash.str"><code class="xref py py-func docutils literal notranslate"><span class="pre">nacl.pwhash.str()</span></code></a> for the general API.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.pwhash.scrypt.verify">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">verify</code><span class="sig-paren">(</span><em class="sig-param">password_hash</em>, <em class="sig-param">password</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/pwhash/scrypt.html#verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.pwhash.scrypt.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function verifies the proposed <code class="docutils literal notranslate"><span class="pre">password</span></code>, using
+<code class="docutils literal notranslate"><span class="pre">password_hash</span></code> as a password verifier.</p>
+<p>See: py:func:<cite>nacl.pwhash.verify</cite> for the general API.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+</dd></dl>
+
+<p class="rubric">Module level constants</p>
+<p>The meaning of each of the constants</p>
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.PASSWD_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">PASSWD_MIN</code><a class="headerlink" href="#nacl.pwhash.scrypt.PASSWD_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.PASSWD_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">PASSWD_MAX</code><a class="headerlink" href="#nacl.pwhash.scrypt.PASSWD_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.PWHASH_SIZE">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">PWHASH_SIZE</code><a class="headerlink" href="#nacl.pwhash.scrypt.PWHASH_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.SALTBYTES">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">SALTBYTES</code><a class="headerlink" href="#nacl.pwhash.scrypt.SALTBYTES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.BYTES_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">BYTES_MIN</code><a class="headerlink" href="#nacl.pwhash.scrypt.BYTES_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.BYTES_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">BYTES_MAX</code><a class="headerlink" href="#nacl.pwhash.scrypt.BYTES_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.OPSLIMIT_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">OPSLIMIT_MIN</code><a class="headerlink" href="#nacl.pwhash.scrypt.OPSLIMIT_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.OPSLIMIT_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">OPSLIMIT_MAX</code><a class="headerlink" href="#nacl.pwhash.scrypt.OPSLIMIT_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.MEMLIMIT_MIN">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">MEMLIMIT_MIN</code><a class="headerlink" href="#nacl.pwhash.scrypt.MEMLIMIT_MIN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.MEMLIMIT_MAX">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">MEMLIMIT_MAX</code><a class="headerlink" href="#nacl.pwhash.scrypt.MEMLIMIT_MAX" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.MEMLIMIT_INTERACTIVE">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">MEMLIMIT_INTERACTIVE</code><a class="headerlink" href="#nacl.pwhash.scrypt.MEMLIMIT_INTERACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.OPSLIMIT_INTERACTIVE">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">OPSLIMIT_INTERACTIVE</code><a class="headerlink" href="#nacl.pwhash.scrypt.OPSLIMIT_INTERACTIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.MEMLIMIT_SENSITIVE">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">MEMLIMIT_SENSITIVE</code><a class="headerlink" href="#nacl.pwhash.scrypt.MEMLIMIT_SENSITIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.OPSLIMIT_SENSITIVE">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">OPSLIMIT_SENSITIVE</code><a class="headerlink" href="#nacl.pwhash.scrypt.OPSLIMIT_SENSITIVE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.MEMLIMIT_MODERATE">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">MEMLIMIT_MODERATE</code><a class="headerlink" href="#nacl.pwhash.scrypt.MEMLIMIT_MODERATE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="data">
+<dt id="nacl.pwhash.scrypt.OPSLIMIT_MODERATE">
+<code class="sig-prename descclassname">nacl.pwhash.scrypt.</code><code class="sig-name descname">OPSLIMIT_MODERATE</code><a class="headerlink" href="#nacl.pwhash.scrypt.OPSLIMIT_MODERATE" title="Permalink to this definition">¶</a></dt>
+<dd><p>is the same as in <a class="reference internal" href="#module-nacl.pwhash" title="nacl.pwhash"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nacl.pwhash</span></code></a>
+and <a class="reference internal" href="#module-nacl.pwhash.argon2id" title="nacl.pwhash.argon2id"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nacl.pwhash.argon2id</span></code></a></p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="hashlib.html" class="btn btn-neutral float-right" title="nacl.hashlib" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="hash.html" class="btn btn-neutral float-left" title="nacl.hash" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+index.rst:3: [redirected permanently] https://travis-ci.org/pyca/pynacl.svg?branch=master to https://api.travis-ci.org/pyca/pynacl.svg?branch=master
+index.rst:3: [redirected permanently] https://codecov.io/github/pyca/pynacl/coverage.svg?branch=master to https://codecov.io/gh/pyca/pynacl/branch/master/graphs/badge.svg?branch=master
+password_hashing.rst:256: [redirected with Found] http://www.openwall.com/presentations/Passwords12-The-Future-Of-Hashing/ to https://www.openwall.com/presentations/Passwords12-The-Future-Of-Hashing/

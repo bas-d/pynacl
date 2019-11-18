@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Building the bundled library &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog" href="../changelog.html" />
+    <link rel="prev" title="secretstream reference vectors" href="secretstream_vectors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference vectors</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#imported-reference-vectors">Imported reference vectors</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#custom-generated-reference-vectors">Custom generated reference vectors</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="argon2_vectors.html">Argon2 constructs reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="blake2_vectors.html">Blake2b reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrypt_vectors.html">scrypt reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sealedbox_vectors.html">SealedBox reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secretstream_vectors.html">secretstream reference vectors</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Building the bundled library</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linux-systems">Linux systems</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Reference vectors</a> &raquo;</li>
+        
+      <li>Building the bundled library</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/vectors/bundled_library_build.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="building-the-bundled-library">
+<span id="building-a-local-library"></span><h1>Building the bundled library<a class="headerlink" href="#building-the-bundled-library" title="Permalink to this headline">¶</a></h1>
+<p>If you you want to avoid a system-wide installation of libsodium’s
+development files just for compiling and running the tests, you can
+instead install the library and header files inside PyNaCl’s sources.</p>
+<div class="section" id="linux-systems">
+<h2>Linux systems<a class="headerlink" href="#linux-systems" title="Permalink to this headline">¶</a></h2>
+<p>On Linux (and presumably other UNIX-like systems), after entering the
+PyNaCl source directory you must execute the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mkdir -p build/libsodium
+$ <span class="nb">cd</span> build/libsodium
+$ ../../src/libsodium/configure --prefix<span class="o">=</span><span class="nv">$PWD</span> --disable-shared
+$ make
+$ make install
+$ <span class="nb">cd</span> ../..
+</pre></div>
+</div>
+<p>If all went well,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ls build/libsodium/<span class="o">{</span>lib,include<span class="o">}</span>
+</pre></div>
+</div>
+<p>should generate something like the following output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>build/libsodium/include:
+sodium  sodium.h
+
+build/libsodium/lib:
+libsodium.a  libsodium.la  pkgconfig
+</pre></div>
+</div>
+<p>If you now define and export the</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nv">SODIUMINCL</span><span class="o">=</span><span class="s2">&quot;-I</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/build/libsodium/include&quot;</span>
+$ <span class="nb">export</span> SODIUMINCL
+$ <span class="nv">SODIUMLIB</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/build/libsodium/lib&quot;</span>
+$ <span class="nb">export</span> SODIUMLIB
+</pre></div>
+</div>
+<p>environment variables, you can instruct the compiler to use the
+just-installed library by simply dereferencing the path flags
+on the c compier command line</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cc <span class="si">${</span><span class="nv">SODIUMINCL</span><span class="si">}</span> <span class="si">${</span><span class="nv">SODIUMLIB</span><span class="si">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="secretstream_vectors.html" class="btn btn-neutral float-left" title="secretstream reference vectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

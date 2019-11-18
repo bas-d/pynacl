@@ -1,0 +1,454 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Argon2 constructs reference vectors &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Blake2b reference vectors" href="blake2_vectors.html" />
+    <link rel="prev" title="Reference vectors" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference vectors</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#imported-reference-vectors">Imported reference vectors</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#custom-generated-reference-vectors">Custom generated reference vectors</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Argon2 constructs reference vectors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vector-generation">Vector generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#code-for-the-vector-generator-driver">Code for the vector generator driver</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blake2_vectors.html">Blake2b reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrypt_vectors.html">scrypt reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sealedbox_vectors.html">SealedBox reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secretstream_vectors.html">secretstream reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bundled_library_build.html">Building the bundled library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Reference vectors</a> &raquo;</li>
+        
+      <li>Argon2 constructs reference vectors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/vectors/argon2_vectors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="argon2-constructs-reference-vectors">
+<h1>Argon2 constructs reference vectors<a class="headerlink" href="#argon2-constructs-reference-vectors" title="Permalink to this headline">¶</a></h1>
+<p>Since libsodium implements a different API for argon2 contructs
+than the one exposed by the reference implementation available at
+<cite>The password hash Argon2… &lt;https://github.com/P-H-C/phc-winner-argon2/&gt;</cite>,
+the <code class="docutils literal notranslate"><span class="pre">kats</span></code> data provided along to the reference implementation sources
+cannot be directly used as test vectors in PyNaCl tests.</p>
+<p>Therefore, we are using a python driver for the command line
+<code class="docutils literal notranslate"><span class="pre">argon2</span></code>, which can be built following the instruction in the
+reference implementation sources.</p>
+<div class="section" id="vector-generation">
+<h2>Vector generation<a class="headerlink" href="#vector-generation" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">argondriver.py</span></code> requires setting, via the command line option
+<code class="docutils literal notranslate"><span class="pre">-x</span></code>, the path to the argon2 executable; and as a default generates
+hex-encoded raw hash data on standard output.</p>
+<p>Setting the <code class="docutils literal notranslate"><span class="pre">-e</span></code> option on the command line allows generating
+modular crypt formatted hashes.</p>
+<p>The other command line options influence the minimum and maximum sizes
+of generated parameters as shown in the driver’s command line help,
+which is printed by inserting the <code class="docutils literal notranslate"><span class="pre">-h</span></code> option in the command line.</p>
+<p>To generate vector data files in <code class="docutils literal notranslate"><span class="pre">tests/data</span></code>, the argondriver.py
+have been called to generate password hashes with parameters compatible
+with <code class="docutils literal notranslate"><span class="pre">libsodium</span></code>’s implementation; in particular, the minimum operations
+count must be 3 for <code class="docutils literal notranslate"><span class="pre">argon2i</span></code> and 1 for <code class="docutils literal notranslate"><span class="pre">argon2id</span></code>, and the salt
+length must be 16 for raw hashes, and can vary for modular crypt formatted
+hashes.</p>
+<p>The full command lines used in generating the vactors are:</p>
+<dl>
+<dt>for raw argon2i</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 docs/vectors/python/argondriver.py <span class="se">\</span>
+             -x ~/phc-winner-argon2/argon2 <span class="se">\</span>
+             -c argon2i <span class="se">\</span>
+             -s <span class="m">16</span> -S <span class="m">16</span> -p <span class="m">8</span> -P <span class="m">16</span> -m <span class="m">14</span> -M <span class="m">18</span> <span class="se">\</span>
+             -l <span class="m">18</span> -L <span class="m">32</span> -t <span class="m">3</span> -T <span class="m">5</span> -n <span class="m">10</span> <span class="se">\</span>
+             -w  tests/data/raw_argon2id_hashes.json
+</pre></div>
+</div>
+</dd>
+<dt>for raw argon2id</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 docs/vectors/python/argondriver.py <span class="se">\</span>
+             -x ~/phc-winner-argon2/argon2 <span class="se">\</span>
+             -c argon2id <span class="se">\</span>
+             -s <span class="m">16</span> -S <span class="m">16</span> -p <span class="m">8</span> -P <span class="m">16</span> -m <span class="m">14</span> -M <span class="m">18</span> <span class="se">\</span>
+             -l <span class="m">18</span> -L <span class="m">32</span> -t <span class="m">1</span> -T <span class="m">5</span> -n <span class="m">10</span> <span class="se">\</span>
+             -w  tests/data/raw_argon2id_hashes.json
+</pre></div>
+</div>
+</dd>
+<dt>for modular crypt argon2i</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 docs/vectors/python/argondriver.py <span class="se">\</span>
+             -x ~/phc-winner-argon2/argon2 <span class="se">\</span>
+             -c argon2i -e <span class="se">\</span>
+             -s <span class="m">8</span> -S <span class="m">16</span> -p <span class="m">8</span> -P <span class="m">16</span> -m <span class="m">14</span> -M <span class="m">18</span> <span class="se">\</span>
+             -l <span class="m">18</span> -L <span class="m">32</span> -t <span class="m">3</span> -T <span class="m">5</span>  -n <span class="m">10</span> <span class="se">\</span>
+             -w  tests/data/modular_crypt_argon2id_hashes.json
+</pre></div>
+</div>
+</dd>
+<dt>for modular crypt argon2id</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 docs/vectors/python/argondriver.py <span class="se">\</span>
+             -x ~/phc-winner-argon2/argon2 <span class="se">\</span>
+             -c argon2id -e <span class="se">\</span>
+             -s <span class="m">8</span> -S <span class="m">16</span> -p <span class="m">8</span> -P <span class="m">16</span> -m <span class="m">14</span> -M <span class="m">18</span> <span class="se">\</span>
+             -l <span class="m">18</span> -L <span class="m">32</span> -t <span class="m">1</span> -T <span class="m">5</span>  -n <span class="m">10</span> <span class="se">\</span>
+             -w  tests/data/modular_crypt_argon2id_hashes.json
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="code-for-the-vector-generator-driver">
+<h2>Code for the vector generator driver<a class="headerlink" href="#code-for-the-vector-generator-driver" title="Permalink to this headline">¶</a></h2>
+<p>The code for <code class="docutils literal notranslate"><span class="pre">argondriver.py</span></code> is available inside
+the <code class="docutils literal notranslate"><span class="pre">docs/vectors/python</span></code> directory of PyNaCl distribution
+and can also be directly downloaded from
+<a class="reference download internal" download="" href="../_downloads/2d826d03b55629abaed5d12198513995/argondriver.py"><code class="xref download docutils literal notranslate"><span class="pre">argondriver.py</span></code></a>.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">argondriver.py</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
+<span class="c1">#</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">class</span> <span class="nc">argonRunner</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">GOODCHARS</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exe</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">exe</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mnsaltlen</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mnsaltlen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mnpwlen</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mnpwlen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mndgstlen</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mndgstlen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mnmem</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mnmem</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mniters</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mniters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mxsaltlen</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mxsaltlen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mxpwlen</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mxpwlen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mxdgstlen</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mxdgstlen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mxmem</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mxmem</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mxiters</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mxiters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoded</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">encoded</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">SystemRandom</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">construct</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">construct</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maxcount</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">n</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">_runOnce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">passwd</span><span class="p">,</span> <span class="n">salt</span><span class="p">,</span> <span class="n">dgst_len</span><span class="p">,</span> <span class="n">maxmem</span><span class="p">,</span> <span class="n">iters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">argv</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">exe</span><span class="p">,</span> <span class="n">salt</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">),</span>
+                <span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;{0:2d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">iters</span><span class="p">),</span>
+                <span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;{0:2d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">maxmem</span><span class="p">),</span>
+                <span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;{0:3d}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dgst_len</span><span class="p">),</span>
+                <span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
+                <span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoded</span><span class="p">:</span>
+            <span class="n">argv</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">)</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;crypt&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">argv</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-r&#39;</span><span class="p">)</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;raw&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">construct</span> <span class="o">==</span> <span class="s1">&#39;argon2i&#39;</span><span class="p">:</span>
+            <span class="n">argv</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-i&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">construct</span> <span class="o">==</span> <span class="s1">&#39;argon2d&#39;</span><span class="p">:</span>
+            <span class="n">argv</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-d&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">construct</span> <span class="o">==</span> <span class="s1">&#39;argon2id&#39;</span><span class="p">:</span>
+            <span class="n">argv</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;-id&#39;</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                             <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">passwd</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">passwd</span><span class="o">=</span><span class="n">passwd</span><span class="p">,</span> <span class="n">salt</span><span class="o">=</span><span class="n">salt</span><span class="p">,</span> <span class="n">dgst_len</span><span class="o">=</span><span class="n">dgst_len</span><span class="p">,</span>
+                    <span class="n">maxmem</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="n">maxmem</span><span class="p">,</span> <span class="n">iters</span><span class="o">=</span><span class="n">iters</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+                    <span class="n">pwhash</span><span class="o">=</span><span class="n">out</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(),</span>
+                    <span class="n">construct</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">construct</span><span class="p">,</span>
+                    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_genSalt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sltln</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mnsaltlen</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mxsaltlen</span><span class="p">)</span>
+        <span class="n">chrs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GOODCHARS</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sltln</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chrs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_genPw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">pwln</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mnpwlen</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mxpwlen</span><span class="p">)</span>
+        <span class="n">chrs</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">GOODCHARS</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">pwln</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chrs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">maxcount</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span>
+        <span class="n">psw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_genPw</span><span class="p">()</span>
+        <span class="n">slt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_genSalt</span><span class="p">()</span>
+        <span class="n">mem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mnmem</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mxmem</span><span class="p">)</span>
+        <span class="n">iters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mniters</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mxiters</span><span class="p">)</span>
+        <span class="n">dgstln</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mndgstlen</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mxdgstlen</span><span class="p">)</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runOnce</span><span class="p">(</span><span class="n">psw</span><span class="p">,</span> <span class="n">slt</span><span class="p">,</span> <span class="n">dgstln</span><span class="p">,</span> <span class="n">mem</span><span class="p">,</span> <span class="n">iters</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">rs</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="nb">next</span> <span class="o">=</span> <span class="n">__next__</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-x&#39;</span><span class="p">,</span> <span class="s1">&#39;--executable&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;exe&#39;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-c&#39;</span><span class="p">,</span> <span class="s1">&#39;--construction&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;construct&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;argon2i&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-v&#39;</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;version&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;13&#39;</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-e&#39;</span><span class="p">,</span> <span class="s1">&#39;--encoded&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;encoded&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                   <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--min-salt-len&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mnsaltlen&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+                   <span class="n">default</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-S&#39;</span><span class="p">,</span> <span class="s1">&#39;--max-salt-len&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mxsaltlen&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+                   <span class="n">default</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;--min-password-len&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mnpwlen&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-P&#39;</span><span class="p">,</span> <span class="s1">&#39;--max-password-len&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mxpwlen&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-l&#39;</span><span class="p">,</span> <span class="s1">&#39;--min-digest-len&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mndgstlen&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-L&#39;</span><span class="p">,</span> <span class="s1">&#39;--max-digest-len&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mxdgstlen&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">64</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;--min-memory-exponent&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mnmem&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-M&#39;</span><span class="p">,</span> <span class="s1">&#39;--max-memory-exponent&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mxmem&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;--min-time-opscount&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mniters&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-T&#39;</span><span class="p">,</span> <span class="s1">&#39;--max-time-opscount&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;mxiters&#39;</span><span class="p">,</span>
+                   <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--count&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-w&#39;</span><span class="p">,</span> <span class="s1">&#39;--output&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;outfile&#39;</span><span class="p">,</span>
+                   <span class="n">default</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">argparse</span><span class="o">.</span><span class="n">FileType</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">))</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">argonRunner</span><span class="p">(</span><span class="n">args</span><span class="p">)]</span>
+
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">outfile</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="blake2_vectors.html" class="btn btn-neutral float-right" title="Blake2b reference vectors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Reference vectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

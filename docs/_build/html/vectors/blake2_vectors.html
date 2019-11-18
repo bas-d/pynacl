@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Blake2b reference vectors &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="scrypt reference vectors" href="scrypt_vectors.html" />
+    <link rel="prev" title="Argon2 constructs reference vectors" href="argon2_vectors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference vectors</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#imported-reference-vectors">Imported reference vectors</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#custom-generated-reference-vectors">Custom generated reference vectors</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="argon2_vectors.html">Argon2 constructs reference vectors</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Blake2b reference vectors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vector-generation">Vector generation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="scrypt_vectors.html">scrypt reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sealedbox_vectors.html">SealedBox reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secretstream_vectors.html">secretstream reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bundled_library_build.html">Building the bundled library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Reference vectors</a> &raquo;</li>
+        
+      <li>Blake2b reference vectors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/vectors/blake2_vectors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="blake2b-reference-vectors">
+<h1>Blake2b reference vectors<a class="headerlink" href="#blake2b-reference-vectors" title="Permalink to this headline">¶</a></h1>
+<p>While the blake2b construction is a keyed hash and variable output
+length algorithm which can optionally be initialized with limited
+size salt and personalization parameters, the <a class="reference external" href="https://github.com/BLAKE2/BLAKE2/blob/master/testvectors/blake2-kat.json">known answers</a> json
+file in the reference <a class="reference external" href="https://github.com/BLAKE2/BLAKE2">blake2</a> sources just provides vectors for
+default length hash with empty salt and personalization.</p>
+<p>To fill this test gap, we used both the pyblake and the libsodium implemented
+generators provided by <a class="reference external" href="https://github.com/jedisct1/crypto-test-vectors">crypto test vectors</a> for the <cite>blake2b</cite> mechanism
+to generate twenty vectors in each of
+<cite>test/data/crypto-test-vectors-blake2-nosalt-nopersonalization.txt</cite>
+and
+<cite>test/data/crypto-test-vectors-blake2-salt-personalization.txt</cite></p>
+<div class="section" id="vector-generation">
+<h2>Vector generation<a class="headerlink" href="#vector-generation" title="Permalink to this headline">¶</a></h2>
+<p>After cloning the github project with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/jedisct1/crypto-test-vectors.git
+</pre></div>
+</div>
+<p>the needed source files will be available in the <cite>nosalt-nopersonalization</cite>
+and <cite>salt-personalization</cite> subdirectories of
+<cite>crypto-test-vectors/crypto/hash/blake2/blake2b/</cite>.</p>
+<p>To run the python generators, after ensuring the needed <a class="reference external" href="https://pythonhosted.org/pyblake2/">pyblake2</a> module
+is available in the python environment, it will be enough to run the following
+commands at the shell prompt:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nv">BLAKE</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/crypto-test-vectors/crypto/hash/blake2/blake2b&quot;</span>
+$ <span class="nv">NOPERS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BLAKE</span><span class="si">}</span><span class="s2">/nosalt-nopersonalization/generators&quot;</span>
+$ <span class="nv">PERSON</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BLAKE</span><span class="si">}</span><span class="s2">/salt-personalization/generators&quot;</span>
+$ python <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NOPERS</span><span class="si">}</span><span class="s2">/pyblake2/generator.py&quot;</span> <span class="m">10</span> &gt; py_nopers_vectors
+$ python <span class="s2">&quot;</span><span class="si">${</span><span class="nv">PERSON</span><span class="si">}</span><span class="s2">/pyblake2/generator.py&quot;</span> <span class="m">10</span> &gt; py_pers_vectors
+</pre></div>
+</div>
+<p>On linux systems, after installing the required <cite>libsodium</cite> development
+package, the C-language generators, can get built by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nv">BLAKE</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/crypto-test-vectors/crypto/hash/blake2/blake2b&quot;</span>
+$ <span class="nv">NOPERS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BLAKE</span><span class="si">}</span><span class="s2">/nosalt-nopersonalization/generators&quot;</span>
+$ <span class="nv">PERSON</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BLAKE</span><span class="si">}</span><span class="s2">/salt-personalization/generators&quot;</span>
+$ <span class="k">for</span> i in <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NOPERS</span><span class="si">}</span><span class="s2">/libsodium&quot;</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">PERSON</span><span class="si">}</span><span class="s2">/libsodium&quot;</span><span class="p">;</span> <span class="k">do</span> <span class="o">(</span><span class="nb">cd</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">&amp;&amp;</span> make<span class="o">)</span><span class="p">;</span> <span class="k">done</span>
+</pre></div>
+</div>
+<p>and then run by executing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ <span class="nv">BLAKE</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span><span class="s2">/crypto-test-vectors/crypto/hash/blake2/blake2b&quot;</span>
+$ <span class="nv">NOPERS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BLAKE</span><span class="si">}</span><span class="s2">/nosalt-nopersonalization/generators&quot;</span>
+$ <span class="nv">PERSON</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">BLAKE</span><span class="si">}</span><span class="s2">/salt-personalization/generators&quot;</span>
+$ <span class="s2">&quot;</span><span class="si">${</span><span class="nv">NOPERS</span><span class="si">}</span><span class="s2">/libsodium/generator&quot;</span> <span class="m">10</span> &gt; py_nopers_vectors_c
+$ <span class="s2">&quot;</span><span class="si">${</span><span class="nv">PERSON</span><span class="si">}</span><span class="s2">/libsodium/generator&quot;</span> <span class="m">10</span> &gt; py_pers_vectors_c
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="scrypt_vectors.html" class="btn btn-neutral float-right" title="scrypt reference vectors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="argon2_vectors.html" class="btn btn-neutral float-left" title="Argon2 constructs reference vectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

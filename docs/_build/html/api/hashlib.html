@@ -1,0 +1,305 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nacl.hashlib &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Installation" href="../install.html" />
+    <link rel="prev" title="nacl.pwhash" href="pwhash.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vectors/index.html">Reference vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>nacl.hashlib</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/hashlib.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nacl-hashlib">
+<h1>nacl.hashlib<a class="headerlink" href="#nacl-hashlib" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="xref py py-mod docutils literal notranslate"><span class="pre">nacl.hashlib</span></code> module exposes directly usable implementations
+of raw constructs which libsodium exposes with simplified APIs, like the
+ones in <code class="xref py py-mod docutils literal notranslate"><span class="pre">nacl.hash</span></code> and in <a class="reference internal" href="pwhash.html#module-nacl.pwhash" title="nacl.pwhash"><code class="xref py py-mod docutils literal notranslate"><span class="pre">nacl.pwhash</span></code></a>.</p>
+<p>The <a class="reference internal" href="#nacl.hashlib.blake2b" title="nacl.hashlib.blake2b"><code class="xref py py-class docutils literal notranslate"><span class="pre">blake2b</span></code></a> and <a class="reference internal" href="#nacl.hashlib.scrypt" title="nacl.hashlib.scrypt"><code class="xref py py-func docutils literal notranslate"><span class="pre">scrypt()</span></code></a> implementations
+are as API compatible as possible with the corresponding ones added
+to cpython standard library’s hashlib module in cpython’s version 3.6.</p>
+<dl class="class">
+<dt id="nacl.hashlib.blake2b">
+<em class="property">class </em><code class="sig-prename descclassname">nacl.hashlib.</code><code class="sig-name descname">blake2b</code><span class="sig-paren">(</span><em class="sig-param">data=b''</em>, <em class="sig-param">digest_size=BYTES</em>, <em class="sig-param">key=b''</em>, <em class="sig-param">salt=b''</em>, <em class="sig-param">person=b''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/hashlib.html#blake2b"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.hashlib.blake2b" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an hash object which exposes an API mostly compatible
+to python3.6’s hashlib.blake2b (the only difference being missing
+support for tree hashing parameters in the contructor)</p>
+<p>The methods <code class="xref py py-func docutils literal notranslate"><span class="pre">update()</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">copy()</span></code>,
+<code class="xref py py-func docutils literal notranslate"><span class="pre">digest()</span></code> and <code class="xref py py-func docutils literal notranslate"><span class="pre">hexdigest()</span></code> have the same semantics
+as described in hashlib documentation.</p>
+<p>Each instance exposes the <code class="xref py py-attr docutils literal notranslate"><span class="pre">digest_size</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">block_size</span></code>
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code> properties as required by hashlib API.</p>
+<dl class="attribute">
+<dt id="nacl.hashlib.blake2b.MAX_DIGEST_SIZE">
+<code class="sig-name descname">MAX_DIGEST_SIZE</code><a class="headerlink" href="#nacl.hashlib.blake2b.MAX_DIGEST_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>the maximum allowed value of the requested digest_size</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nacl.hashlib.blake2b.MAX_KEY_SIZE">
+<code class="sig-name descname">MAX_KEY_SIZE</code><a class="headerlink" href="#nacl.hashlib.blake2b.MAX_KEY_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>the maximum allowed size of the password parameter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nacl.hashlib.blake2b.PERSON_SIZE">
+<code class="sig-name descname">PERSON_SIZE</code><a class="headerlink" href="#nacl.hashlib.blake2b.PERSON_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>the maximimum size of the personalization</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nacl.hashlib.blake2b.SALT_SIZE">
+<code class="sig-name descname">SALT_SIZE</code><a class="headerlink" href="#nacl.hashlib.blake2b.SALT_SIZE" title="Permalink to this definition">¶</a></dt>
+<dd><p>the maximimum size of the salt</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.hashlib.scrypt">
+<code class="sig-prename descclassname">nacl.hashlib.</code><code class="sig-name descname">scrypt</code><span class="sig-paren">(</span><em class="sig-param">password</em>, <em class="sig-param">salt=''</em>, <em class="sig-param">n=2**20</em>, <em class="sig-param">r=8</em>, <em class="sig-param">p=1</em>, <em class="sig-param">maxmem=2**25</em>, <em class="sig-param">dklen=64</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/hashlib.html#scrypt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.hashlib.scrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Derive a raw cryptographic key using the scrypt KDF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – the input password</p></li>
+<li><p><strong>salt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – a crypographically-strong random salt</p></li>
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – CPU/Memory cost factor</p></li>
+<li><p><strong>r</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – block size multiplier: the used block size will be 128 * r</p></li>
+<li><p><strong>p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – requested parallelism: the number of indipendently running
+scrypt constructs which will contribute to the final key
+generation</p></li>
+<li><p><strong>maxmem</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – maximum memory the whole scrypt construct will be
+entitled to use</p></li>
+<li><p><strong>dklen</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – length of the derived key</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a buffer dklen bytes long containing the derived key</p>
+</dd>
+</dl>
+<p>Implements the same signature as the <code class="docutils literal notranslate"><span class="pre">hashlib.scrypt</span></code> implemented
+in cpython version 3.6</p>
+<p>The recommended values for n, r, p in 2012 were n = 2**14, r = 8, p = 1;
+as of 2016, libsodium suggests using n = 2**14, r = 8, p = 1
+in a “interactive” setting and n = 2**20, r = 8, p = 1
+in a “sensitive” setting.</p>
+<p>The total memory usage will respectively be a little greater than 16MB
+in the “interactive” setting, and a little greater than 1GB in the
+“sensitive” setting.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pwhash.html" class="btn btn-neutral float-left" title="nacl.pwhash" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nacl.hash &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="nacl.pwhash" href="pwhash.html" />
+    <link rel="prev" title="Utilities" href="../utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vectors/index.html">Reference vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>nacl.hash</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/hash.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nacl-hash">
+<h1>nacl.hash<a class="headerlink" href="#nacl-hash" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="nacl.hash.sha256">
+<code class="sig-prename descclassname">nacl.hash.</code><code class="sig-name descname">sha256</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/hash.html#sha256"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.hash.sha256" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hashes <code class="docutils literal notranslate"><span class="pre">message</span></code> with SHA256.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The message to hash.</p></li>
+<li><p><strong>encoder</strong> – A class that is able to encode the hashed message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return bytes</dt>
+<dd class="field-even"><p>The hashed message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.hash.sha512">
+<code class="sig-prename descclassname">nacl.hash.</code><code class="sig-name descname">sha512</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">encoder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/hash.html#sha512"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.hash.sha512" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hashes <code class="docutils literal notranslate"><span class="pre">message</span></code> with SHA512.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The message to hash.</p></li>
+<li><p><strong>encoder</strong> – A class that is able to encode the hashed message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return bytes</dt>
+<dd class="field-even"><p>The hashed message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.hash.blake2b">
+<code class="sig-prename descclassname">nacl.hash.</code><code class="sig-name descname">blake2b</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">digest_size=BLAKE2B_BYTES</em>, <em class="sig-param">key=b''</em>, <em class="sig-param">salt=b''</em>, <em class="sig-param">person=b''</em>, <em class="sig-param">encoder=nacl.encoding.HexEncoder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/hash.html#blake2b"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.hash.blake2b" title="Permalink to this definition">¶</a></dt>
+<dd><p>One-shot blake2b digest</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – the digest input byte sequence</p></li>
+<li><p><strong>digest_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – the requested digest size; must be at most
+<code class="xref py py-data docutils literal notranslate"><span class="pre">BLAKE2B_BYTES_MAX</span></code>;
+the default digest size is <code class="xref py py-data docutils literal notranslate"><span class="pre">BLAKE2B_BYTES</span></code></p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – the key to be set for keyed MAC/PRF usage; if set, the key
+must be at most <code class="xref py py-data docutils literal notranslate"><span class="pre">BLAKE2B_KEYBYTES_MAX</span></code> long</p></li>
+<li><p><strong>salt</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – an initialization salt at most
+<code class="xref py py-data docutils literal notranslate"><span class="pre">BLAKE2B_SALTBYTES</span></code> long; it will be zero-padded
+if needed</p></li>
+<li><p><strong>person</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – a personalization string at most
+<code class="xref py py-data docutils literal notranslate"><span class="pre">BLAKE2B_PERSONALBYTES</span></code> long; it will be
+zero-padded if needed</p></li>
+<li><p><strong>encoder</strong> (<em>class</em>) – the encoder to use on returned digest</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>encoded bytes data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>the return type of the choosen encoder</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.hash.siphash24">
+<code class="sig-prename descclassname">nacl.hash.</code><code class="sig-name descname">siphash24</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">key=b''</em>, <em class="sig-param">encoder=nacl.encoding.HexEncoder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/hash.html#siphash24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.hash.siphash24" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes a keyed MAC of <code class="docutils literal notranslate"><span class="pre">message</span></code> using siphash-2-4</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The message to hash.</p></li>
+<li><p><strong>key</strong> (bytes(<code class="xref py py-data docutils literal notranslate"><span class="pre">SIPHASH_KEYBYTES</span></code>)) – the message authentication key to be used
+It must be a <code class="xref py py-data docutils literal notranslate"><span class="pre">SIPHASH_KEYBYTES</span></code> long
+bytes sequence</p></li>
+<li><p><strong>encoder</strong> – A class that is able to encode the hashed message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The hashed message.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bytes(<code class="xref py py-data docutils literal notranslate"><span class="pre">SIPHASH_BYTES</span></code>) long bytes sequence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="nacl.hash.siphashx24">
+<code class="sig-prename descclassname">nacl.hash.</code><code class="sig-name descname">siphashx24</code><span class="sig-paren">(</span><em class="sig-param">message</em>, <em class="sig-param">key=b''</em>, <em class="sig-param">encoder=nacl.encoding.HexEncoder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nacl/hash.html#siphashx24"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nacl.hash.siphashx24" title="Permalink to this definition">¶</a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.2.</span></p>
+</div>
+<p>Computes a keyed MAC of <code class="docutils literal notranslate"><span class="pre">message</span></code> using the extended output length
+variant of siphash-2-4</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.7)"><em>bytes</em></a>) – The message to hash.</p></li>
+<li><p><strong>key</strong> (bytes(<code class="xref py py-data docutils literal notranslate"><span class="pre">SIPHASHX_KEYBYTES</span></code>)) – the message authentication key to be used
+It must be a <code class="xref py py-data docutils literal notranslate"><span class="pre">SIPHASHX_KEYBYTES</span></code> long
+bytes sequence</p></li>
+<li><p><strong>encoder</strong> – A class that is able to encode the hashed message.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The hashed message.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bytes(<code class="xref py py-data docutils literal notranslate"><span class="pre">SIPHASHX_BYTES</span></code>) long bytes sequence</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pwhash.html" class="btn btn-neutral float-right" title="nacl.pwhash" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../utils.html" class="btn btn-neutral float-left" title="Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

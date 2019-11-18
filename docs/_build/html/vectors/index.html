@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Reference vectors &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Argon2 constructs reference vectors" href="argon2_vectors.html" />
+    <link rel="prev" title="Doing A Release" href="../doing-a-release.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference vectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#imported-reference-vectors">Imported reference vectors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#box-construction">Box construction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secretbox-construction">SecretBox construction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chacha20poly1305">chacha20poly1305</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#xchacha20poly1305">xchacha20poly1305</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#siphash24-and-siphashx24">siphash24 and siphashx24</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-generated-reference-vectors">Custom generated reference vectors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="argon2_vectors.html">Argon2 constructs reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="blake2_vectors.html">Blake2b reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrypt_vectors.html">scrypt reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sealedbox_vectors.html">SealedBox reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="secretstream_vectors.html">secretstream reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bundled_library_build.html">Building the bundled library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Reference vectors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/vectors/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="reference-vectors">
+<h1>Reference vectors<a class="headerlink" href="#reference-vectors" title="Permalink to this headline">¶</a></h1>
+<p>In addition to the policy of keeping any code path in PyNaCl covered by
+unit tests, the output from cryptographic primitives and constructions
+must be verified as being conformant to the reference implementations
+or standards.</p>
+<div class="section" id="imported-reference-vectors">
+<h2>Imported reference vectors<a class="headerlink" href="#imported-reference-vectors" title="Permalink to this headline">¶</a></h2>
+<p>Wherever possible it is the PyNaCl project’s policy to use existing
+reference vectors for primitives or constructions. These vectors should
+ideally be in their original format, but it is acceptable to make minimal
+changes to ease parsing at our discretion.</p>
+<div class="section" id="box-construction">
+<h3>Box construction<a class="headerlink" href="#box-construction" title="Permalink to this headline">¶</a></h3>
+<p>The reference vector for testing the <a class="reference internal" href="../public.html#nacl.public.Box" title="nacl.public.Box"><code class="xref py py-class docutils literal notranslate"><span class="pre">nacl.public.Box</span></code></a>
+implementation come from libsodium’s <code class="docutils literal notranslate"><span class="pre">test/default/box.c</span></code> and
+<code class="docutils literal notranslate"><span class="pre">test/default/box2.c</span></code> and the corresponding expected outputs
+in <code class="docutils literal notranslate"><span class="pre">test/default/box.exp</span></code> and <code class="docutils literal notranslate"><span class="pre">test/default/box2.exp</span></code></p>
+</div>
+<div class="section" id="secretbox-construction">
+<h3>SecretBox construction<a class="headerlink" href="#secretbox-construction" title="Permalink to this headline">¶</a></h3>
+<p>The reference vector for testing the <a class="reference internal" href="../secret.html#nacl.secret.SecretBox" title="nacl.secret.SecretBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">nacl.secret.SecretBox</span></code></a>
+implementation come from libsodium’s <code class="docutils literal notranslate"><span class="pre">test/default/secretbox.c</span></code>
+and the corresponding expected outputs in <code class="docutils literal notranslate"><span class="pre">test/default/secretbox.exp</span></code></p>
+</div>
+<div class="section" id="chacha20poly1305">
+<h3>chacha20poly1305<a class="headerlink" href="#chacha20poly1305" title="Permalink to this headline">¶</a></h3>
+<p>The reference vectors for both the legacy draft-agl-tls-chacha20poly1305
+and the IETF ratified rfc7539 chacha20poly1305 constructions are taken
+from libressl version 2.5.5 tests/aeadtests.txt, excluding the shortened
+authentication tag vectors, since libsodium only supports full sized tags.</p>
+</div>
+<div class="section" id="xchacha20poly1305">
+<h3>xchacha20poly1305<a class="headerlink" href="#xchacha20poly1305" title="Permalink to this headline">¶</a></h3>
+<p>The reference vector for the xchacha20poly1305 construction is taken
+from the first test in libsodium’s test/default/aead_xchacha20poly1305.c,
+which defines the parameters, and the corresponding expected output from
+aead_xchacha20poly1305.exp.</p>
+</div>
+<div class="section" id="siphash24-and-siphashx24">
+<h3>siphash24 and siphashx24<a class="headerlink" href="#siphash24-and-siphashx24" title="Permalink to this headline">¶</a></h3>
+<p>The reference vectors for both the original and the 128 bit variants of
+the siphash-2-4 construction are taken from the reference code sources.
+In particular, the original expected results come from siphash’s vectors.h,
+while the key and the input messages have been generated following
+the respective definitions in siphash’s test.c.</p>
+</div>
+</div>
+<div class="section" id="custom-generated-reference-vectors">
+<h2>Custom generated reference vectors<a class="headerlink" href="#custom-generated-reference-vectors" title="Permalink to this headline">¶</a></h2>
+<p>In cases where there are no standardized test vectors, or the available ones
+are not applicable to libsodium’s implementation, test vectors are custom
+generated.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="argon2_vectors.html">Argon2 constructs reference vectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="argon2_vectors.html#vector-generation">Vector generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="argon2_vectors.html#code-for-the-vector-generator-driver">Code for the vector generator driver</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blake2_vectors.html">Blake2b reference vectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blake2_vectors.html#vector-generation">Vector generation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scrypt_vectors.html">scrypt reference vectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sealedbox_vectors.html">SealedBox reference vectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sealedbox_vectors.html#vector-generation">Vector generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sealedbox_vectors.html#vector-test">Vector test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sealedbox_vectors.html#source-code-for-the-vector-checker-utility">Source code for the vector checker utility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="secretstream_vectors.html">secretstream reference vectors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="secretstream_vectors.html#vector-generation">Vector generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="secretstream_vectors.html#source-code-for-the-vector-checker-utility">Source code for the vector checker utility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bundled_library_build.html">Building the bundled library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bundled_library_build.html#linux-systems">Linux systems</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="argon2_vectors.html" class="btn btn-neutral float-right" title="Argon2 constructs reference vectors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../doing-a-release.html" class="btn btn-neutral float-left" title="Doing A Release" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

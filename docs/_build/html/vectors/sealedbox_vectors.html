@@ -1,0 +1,475 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SealedBox reference vectors &mdash; PyNaCl 1.4.0.dev1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="secretstream reference vectors" href="secretstream_vectors.html" />
+    <link rel="prev" title="scrypt reference vectors" href="scrypt_vectors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> PyNaCl
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                14
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../public.html">Public Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secret.html">Secret Key Encryption</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../signing.html">Digital Signatures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hashing.html">Hashing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../password_hashing.html">Password hashing</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../encoding.html">Encoders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exceptions.html">Exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Api Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/hash.html">nacl.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/pwhash.html">nacl.pwhash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/hashlib.html">nacl.hashlib</a></li>
+</ul>
+<p class="caption"><span class="caption-text">The PyNaCl open source project</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doing-a-release.html">Doing A Release</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Reference vectors</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#imported-reference-vectors">Imported reference vectors</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#custom-generated-reference-vectors">Custom generated reference vectors</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="argon2_vectors.html">Argon2 constructs reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="blake2_vectors.html">Blake2b reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="scrypt_vectors.html">scrypt reference vectors</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">SealedBox reference vectors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vector-generation">Vector generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vector-test">Vector test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#source-code-for-the-vector-checker-utility">Source code for the vector checker utility</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="secretstream_vectors.html">secretstream reference vectors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="bundled_library_build.html">Building the bundled library</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyNaCl</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Reference vectors</a> &raquo;</li>
+        
+      <li>SealedBox reference vectors</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/vectors/sealedbox_vectors.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sealedbox-reference-vectors">
+<h1>SealedBox reference vectors<a class="headerlink" href="#sealedbox-reference-vectors" title="Permalink to this headline">¶</a></h1>
+<p>Since libsodium’s tests do not provide reference data for the SealedBox
+construction, the implementation is verified with a <code class="docutils literal notranslate"><span class="pre">sealbox_test_vectors</span></code>
+utility program that produces and checks custom test vectors
+by making specific calls to libsodium API.</p>
+<p>To build the <code class="docutils literal notranslate"><span class="pre">sealbox_test_vectors</span></code> you need a <code class="docutils literal notranslate"><span class="pre">C</span></code> language compiler,
+a prebuilt libsodium library more recent than version 1.0.3 and the
+corresponding include headers.</p>
+<p>In a UNIX-like programming environment you should then execute:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cc -o sealbox_test_vectors sealbox_test_vectors.c -lsodium -lc
+</pre></div>
+</div>
+<p>If you prefer using a locally compiled installation of the bundled sources,
+refer to <a class="reference internal" href="bundled_library_build.html#building-a-local-library"><span class="std std-ref">Building the bundled library</span></a> and then run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ cc -o sealbox_test_vectors sealbox_test_vectors.c <span class="se">\</span>
+  <span class="si">${</span><span class="nv">SODIUMINCL</span><span class="si">}</span> <span class="si">${</span><span class="nv">SODIUMLIB</span><span class="si">}</span> -lsodium -lc
+</pre></div>
+</div>
+<div class="section" id="vector-generation">
+<h2>Vector generation<a class="headerlink" href="#vector-generation" title="Permalink to this headline">¶</a></h2>
+<p>When called with one or more command line arguments, <code class="docutils literal notranslate"><span class="pre">sealbox_test_vectors</span></code>
+will generate the number of hex-encoded vectors requested as first argument,
+with the optional second and third arguments influencing the length of the
+randomly generated messages:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./sealbox_test_vectors <span class="m">1</span>
+XXXX...        XXXX...        &lt;len&gt;:XXXX...        &lt;len&gt;:XXXX...
+</pre></div>
+</div>
+<p>The second argument, if present, sets both a minimum and a maximum length
+on generated messages, overriding the default 128 bytes values
+respectively with the supplied value and with twice the supplied value.</p>
+<p>The third argument, if present, sets the maximum length of generated
+messages.</p>
+</div>
+<div class="section" id="vector-test">
+<h2>Vector test<a class="headerlink" href="#vector-test" title="Permalink to this headline">¶</a></h2>
+<p>When called without command line arguments, <code class="docutils literal notranslate"><span class="pre">sealbox_test_vectors</span></code>
+will parse and hex-decode the lines given as standard input and
+check if decoding the encrypted message will return the original
+message. A “OK”/”FAIL” tag will be appended to the input line to
+signify success/failure of the test.</p>
+<p>To check correct “round-trip” behavior, you can run <code class="docutils literal notranslate"><span class="pre">sealbox_test_vectors</span></code>
+as a test vector generator against itself:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./sealbox_test_vectors <span class="m">1</span> <span class="p">|</span> ./sealbox_test_vectors
+XXXX...     XXXX... &lt;len&gt;:XXXX...   &lt;len&gt;:XXXX...   OK
+</pre></div>
+</div>
+<p>If you want to check the vectors distributed with PyNaCl’s sources,
+after setting the environment variable <code class="docutils literal notranslate"><span class="pre">PYNACL_BASE</span></code> to the directory
+where the unpacked source for PyNaCl has been extracted/cloned,
+you could run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ ./sealbox_test_vectors &lt; <span class="si">${</span><span class="nv">PYNACL_BASE</span><span class="si">}</span>/tests/data/sealed_box_ref.txt
+77076d ... 8c86  OK
+</pre></div>
+</div>
+</div>
+<div class="section" id="source-code-for-the-vector-checker-utility">
+<h2>Source code for the vector checker utility<a class="headerlink" href="#source-code-for-the-vector-checker-utility" title="Permalink to this headline">¶</a></h2>
+<p>The source code for <code class="docutils literal notranslate"><span class="pre">sealbox_test_vectors</span></code> is available inside
+the <code class="docutils literal notranslate"><span class="pre">docs/vectors/c-source</span></code> directory of PyNaCl distribution
+and can also be directly downloaded from
+<a class="reference download internal" download="" href="../_downloads/8274e377771d2c90c194fc2b9c943ef0/sealbox_test_vectors.c"><code class="xref download docutils literal notranslate"><span class="pre">sealbox_test_vectors.c</span></code></a>.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">sealbox_test_vectors.c</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * Copyright 2017 Donald Stufft and individual contributors</span>
+<span class="cm"> *</span>
+<span class="cm"> * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="cm"> * you may not use this file except in compliance with the License.</span>
+<span class="cm"> * You may obtain a copy of the License at</span>
+<span class="cm"> *</span>
+<span class="cm"> * http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="cm"> *</span>
+<span class="cm"> * Unless required by applicable law or agreed to in writing, software</span>
+<span class="cm"> * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="cm"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="cm"> * See the License for the specific language governing permissions and</span>
+<span class="cm"> * limitations under the License.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Test vector generator/checker for libsodium&#39;s box_seal APIs</span>
+<span class="cm"> * to build in a unix-like environment, use a command line like</span>
+<span class="cm"> * $ cc sealbox_test_vectors.c -I${IPATH} -L${LPATH} -lsodium -o sealbox_test_vectors</span>
+<span class="cm"> * with IPATH and LPATH defined to respectively point to libsodium&#39;s include path</span>
+<span class="cm"> * and to the directory containing the link library libsodium.a or libsodium.o</span>
+<span class="cm"> *</span>
+<span class="cm"> */</span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;sodium.h&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span> <span class="nf">checkone</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">hxsecret</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">hxpub</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">ptlen</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">hxplaintext</span><span class="p">,</span>
+	      <span class="kt">size_t</span> <span class="n">crlen</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">hxencrypted</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="n">pklen</span> <span class="o">=</span> <span class="n">crypto_box_PUBLICKEYBYTES</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sklen</span> <span class="o">=</span> <span class="n">crypto_box_SECRETKEYBYTES</span><span class="p">;</span>
+
+    <span class="kt">char</span> <span class="o">*</span><span class="n">skr</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">sklen</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">pub</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">pklen</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">txt</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">ptlen</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">crpt</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">crlen</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">outp</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">ptlen</span><span class="p">);</span>
+
+    <span class="kt">int</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">sodium_hex2bin</span> <span class="p">(</span><span class="n">skr</span><span class="p">,</span> <span class="n">sklen</span><span class="p">,</span> <span class="n">hxsecret</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sklen</span><span class="p">,</span>
+                             <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">rs</span> <span class="o">|=</span> <span class="n">sodium_hex2bin</span> <span class="p">(</span><span class="n">pub</span><span class="p">,</span> <span class="n">pklen</span><span class="p">,</span> <span class="n">hxpub</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pklen</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">rs</span> <span class="o">|=</span> <span class="n">sodium_hex2bin</span> <span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">ptlen</span><span class="p">,</span> <span class="n">hxplaintext</span><span class="p">,</span> <span class="n">strlen</span> <span class="p">(</span><span class="n">hxplaintext</span><span class="p">),</span>
+                          <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">rs</span> <span class="o">|=</span> <span class="n">sodium_hex2bin</span> <span class="p">(</span><span class="n">crpt</span><span class="p">,</span> <span class="n">crlen</span><span class="p">,</span> <span class="n">hxencrypted</span><span class="p">,</span> <span class="n">strlen</span> <span class="p">(</span><span class="n">hxencrypted</span><span class="p">),</span>
+                          <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">rs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">crypto_box_seal_open</span> <span class="p">(</span><span class="n">outp</span><span class="p">,</span> <span class="n">crpt</span><span class="p">,</span> <span class="n">crlen</span><span class="p">,</span> <span class="n">pub</span><span class="p">,</span> <span class="n">skr</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rs</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">rs</span> <span class="o">=</span> <span class="n">sodium_memcmp</span> <span class="p">(</span><span class="n">outp</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">ptlen</span><span class="p">);</span>
+
+    <span class="n">sodium_free</span> <span class="p">(</span><span class="n">crpt</span><span class="p">);</span>
+    <span class="n">sodium_free</span> <span class="p">(</span><span class="n">txt</span><span class="p">);</span>
+    <span class="n">sodium_free</span> <span class="p">(</span><span class="n">skr</span><span class="p">);</span>
+    <span class="n">sodium_free</span> <span class="p">(</span><span class="n">pub</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="n">rs</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">gentestline</span> <span class="p">(</span><span class="kt">int</span> <span class="n">minmsglen</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxmsglen</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kt">int</span> <span class="n">pklen</span> <span class="o">=</span> <span class="n">crypto_box_PUBLICKEYBYTES</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sklen</span> <span class="o">=</span> <span class="n">crypto_box_SECRETKEYBYTES</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">txtlen</span> <span class="o">=</span> <span class="n">minmsglen</span> <span class="o">+</span> <span class="n">randombytes_uniform</span> <span class="p">(</span><span class="n">maxmsglen</span> <span class="o">-</span> <span class="n">minmsglen</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="kt">size_t</span> <span class="n">encrlen</span> <span class="o">=</span> <span class="n">txtlen</span> <span class="o">+</span> <span class="n">crypto_box_SEALBYTES</span><span class="p">;</span>
+
+    <span class="kt">char</span> <span class="o">*</span><span class="n">skr</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">sklen</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">pub</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">pklen</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">txt</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">txtlen</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">crpt</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">encrlen</span><span class="p">);</span>
+
+    <span class="n">crypto_box_keypair</span> <span class="p">(</span><span class="n">pub</span><span class="p">,</span> <span class="n">skr</span><span class="p">);</span>
+    <span class="n">randombytes_buf</span> <span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="n">txtlen</span><span class="p">);</span>
+
+    <span class="n">crypto_box_seal</span> <span class="p">(</span><span class="n">crpt</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">txtlen</span><span class="p">,</span> <span class="n">pub</span><span class="p">);</span>
+
+    <span class="kt">char</span> <span class="o">*</span><span class="n">hskr</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">sklen</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">hpub</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">pklen</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">htxt</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">txtlen</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">hkrp</span> <span class="o">=</span> <span class="n">sodium_malloc</span> <span class="p">(</span><span class="n">encrlen</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+
+    <span class="n">sodium_bin2hex</span> <span class="p">(</span><span class="n">hskr</span><span class="p">,</span> <span class="n">sklen</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">skr</span><span class="p">,</span> <span class="n">sklen</span><span class="p">);</span>
+    <span class="n">sodium_bin2hex</span> <span class="p">(</span><span class="n">hpub</span><span class="p">,</span> <span class="n">pklen</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pub</span><span class="p">,</span> <span class="n">pklen</span><span class="p">);</span>
+    <span class="n">sodium_bin2hex</span> <span class="p">(</span><span class="n">htxt</span><span class="p">,</span> <span class="n">txtlen</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">txt</span><span class="p">,</span> <span class="n">txtlen</span><span class="p">);</span>
+    <span class="n">sodium_bin2hex</span> <span class="p">(</span><span class="n">hkrp</span><span class="p">,</span> <span class="n">encrlen</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">crpt</span><span class="p">,</span> <span class="n">encrlen</span><span class="p">);</span>
+
+    <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;%s</span><span class="se">\t</span><span class="s">%s</span><span class="se">\t</span><span class="s">%zu:%s</span><span class="se">\t</span><span class="s">%zu:%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">hskr</span><span class="p">,</span> <span class="n">hpub</span><span class="p">,</span> <span class="n">txtlen</span><span class="p">,</span> <span class="n">htxt</span><span class="p">,</span> <span class="n">encrlen</span><span class="p">,</span> <span class="n">hkrp</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+<span class="cm">/*</span>
+<span class="cm"> * If called without any argument, the resulting executable will</span>
+<span class="cm"> * read and hex decode the secret and public part of the receiver key,</span>
+<span class="cm"> * the original plaintext and the ciphertext, and then</span>
+<span class="cm"> * check if the message resulting from decrypting ciphertext with</span>
+<span class="cm"> * the secret key is equal to the given plaintext</span>
+<span class="cm"> *</span>
+<span class="cm"> * If called with a sequence of integer arguments, sealbox_test_vectors</span>
+<span class="cm"> * will generate the requested number of reference lines, encrypting </span>
+<span class="cm"> * random messages.</span>
+<span class="cm"> *</span>
+<span class="cm"> */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">sodium_init</span> <span class="p">()</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">exit</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">size_t</span> <span class="n">lsz</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">line</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="kt">ssize_t</span> <span class="n">lln</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">res</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="n">hxsecret</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">crypto_box_SECRETKEYBYTES</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kt">char</span> <span class="n">hxpub</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">crypto_box_PUBLICKEYBYTES</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kt">char</span> <span class="n">hxplaintext</span><span class="p">[</span><span class="mi">2048</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kt">char</span> <span class="n">hxencrypted</span><span class="p">[</span><span class="mi">2048</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">crypto_box_SEALBYTES</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kt">char</span> <span class="n">cmpplaintext</span><span class="p">[</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">2048</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kt">char</span> <span class="n">cmpencrypted</span><span class="p">[</span><span class="mi">5</span> <span class="o">+</span> <span class="mi">2048</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">crypto_box_SEALBYTES</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="kt">size_t</span> <span class="n">ptlen</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">size_t</span> <span class="n">crlen</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="n">lln</span> <span class="o">=</span> <span class="n">getline</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">line</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">lsz</span><span class="p">,</span> <span class="n">stdin</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lln</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">strncmp</span> <span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&quot;#&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+                        <span class="n">strncmp</span> <span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span>
+                        <span class="n">strncmp</span> <span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\r</span><span class="s">&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                    <span class="k">continue</span><span class="p">;</span>
+
+                <span class="n">sscanf</span> <span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&quot;%s%s%s%s&quot;</span><span class="p">,</span>
+                        <span class="n">hxsecret</span><span class="p">,</span> <span class="n">hxpub</span><span class="p">,</span> <span class="n">cmpplaintext</span><span class="p">,</span> <span class="n">cmpencrypted</span><span class="p">);</span>
+                <span class="n">sscanf</span> <span class="p">(</span><span class="n">cmpplaintext</span><span class="p">,</span> <span class="s">&quot;%zu:%s&quot;</span><span class="p">,</span>
+                        <span class="o">&amp;</span><span class="n">ptlen</span><span class="p">,</span> <span class="n">hxplaintext</span><span class="p">);</span>
+                <span class="n">sscanf</span> <span class="p">(</span><span class="n">cmpencrypted</span><span class="p">,</span> <span class="s">&quot;%zu:%s&quot;</span><span class="p">,</span>
+                        <span class="o">&amp;</span><span class="n">crlen</span><span class="p">,</span> <span class="n">hxencrypted</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">ptlen</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">memset</span><span class="p">(</span><span class="n">hxplaintext</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">hxplaintext</span><span class="p">));</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">crlen</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="n">memset</span><span class="p">(</span><span class="n">hxencrypted</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">hxencrypted</span><span class="p">));</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="n">checkone</span> <span class="p">(</span><span class="n">hxsecret</span><span class="p">,</span> <span class="n">hxpub</span><span class="p">,</span> <span class="n">ptlen</span><span class="p">,</span> <span class="n">hxplaintext</span><span class="p">,</span> <span class="n">crlen</span><span class="p">,</span> <span class="n">hxencrypted</span><span class="p">);</span>
+                <span class="kt">char</span> <span class="o">*</span><span class="n">rsstr</span> <span class="o">=</span> <span class="p">(</span><span class="n">res</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">?</span> <span class="s">&quot;OK&quot;</span> <span class="o">:</span> <span class="s">&quot;FAIL&quot;</span><span class="p">;</span>
+                <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;%s</span><span class="se">\t</span><span class="s">%s</span><span class="se">\t</span><span class="s">%zu:%s</span><span class="se">\t</span><span class="s">%zu:%s</span><span class="se">\t</span><span class="s">%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+                        <span class="n">hxsecret</span><span class="p">,</span> <span class="n">hxpub</span><span class="p">,</span> <span class="n">ptlen</span><span class="p">,</span> <span class="n">hxplaintext</span><span class="p">,</span> <span class="n">crlen</span><span class="p">,</span> <span class="n">hxencrypted</span><span class="p">,</span> <span class="n">rsstr</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">free</span> <span class="p">(</span><span class="n">line</span><span class="p">);</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">nlines</span> <span class="o">=</span> <span class="n">atoi</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="kt">int</span> <span class="n">minmsgl</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">maxmsgl</span> <span class="o">=</span> <span class="mi">128</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">minmsgl</span> <span class="o">=</span> <span class="n">atoi</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+            <span class="n">maxmsgl</span> <span class="o">=</span> <span class="n">atoi</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">minmsgl</span> <span class="o">=</span> <span class="n">atoi</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+            <span class="n">maxmsgl</span> <span class="o">=</span> <span class="n">atoi</span> <span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nlines</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">gentestline</span> <span class="p">(</span><span class="n">minmsgl</span><span class="p">,</span> <span class="n">maxmsgl</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="secretstream_vectors.html" class="btn btn-neutral float-right" title="secretstream reference vectors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="scrypt_vectors.html" class="btn btn-neutral float-left" title="scrypt reference vectors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Donald Stufft and Individual Contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
