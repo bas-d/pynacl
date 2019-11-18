@@ -171,7 +171,7 @@ class build_clib(_build_clib):
         subprocess.check_call(["make"] + make_args, cwd=build_temp)
 
         # Check the build library
-        subprocess.check_call(["make", "check"] + make_args, cwd=build_temp)
+        # subprocess.check_call(["make", "check"] + make_args, cwd=build_temp)
 
         # Install the built library
         subprocess.check_call(["make", "install"] + make_args, cwd=build_temp)
